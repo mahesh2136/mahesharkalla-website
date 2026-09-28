@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Daily Terminal | Tech News & App Hub</title>
+    <title>The Daily Terminal | Tech News &amp; App Hub</title>
     <style>
         :root {
             --bg-primary: #0f172a;
@@ -116,19 +116,58 @@
             margin: 0 auto;
         }
 
-        .section-title {
-            font-size: 1.8rem;
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 1.5rem;
             border-left: 4px solid var(--accent-cyan);
             padding-left: 0.75rem;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
 
-        /* News Cards */
+        .section-title {
+            font-size: 1.8rem;
+        }
+
+        .controls-wrapper {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .search-input {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--bg-accent);
+            padding: 0.45rem 0.8rem;
+            border-radius: 6px;
+            font-family: inherit;
+            min-width: 220px;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent-cyan);
+        }
+
+        .filter-select {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--bg-accent);
+            padding: 0.45rem 0.8rem;
+            border-radius: 6px;
+            font-family: inherit;
+        }
+
+        /* News & Articles Cards */
         .news-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 1.5rem;
-            margin-bottom: 4rem;
+            margin-bottom: 2rem;
         }
 
         .news-card {
@@ -154,6 +193,10 @@
             font-family: var(--font-mono);
         }
 
+        .tag-article {
+            color: var(--accent-green);
+        }
+
         .news-card h3 {
             margin-bottom: 0.5rem;
             font-size: 1.2rem;
@@ -176,6 +219,45 @@
             font-size: 0.8rem;
             color: var(--text-secondary);
             font-family: var(--font-mono);
+        }
+
+        /* Pagination Component */
+        .pagination-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 2rem 0 4rem 0;
+            flex-wrap: wrap;
+        }
+
+        .page-btn {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--bg-accent);
+            color: var(--text-secondary);
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .page-btn:hover:not(:disabled) {
+            border-color: var(--accent-cyan);
+            color: var(--accent-cyan);
+        }
+
+        .page-btn.active {
+            background-color: var(--accent-cyan);
+            color: var(--bg-primary);
+            border-color: var(--accent-cyan);
+            font-weight: bold;
+        }
+
+        .page-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
         }
 
         /* App Hub */
@@ -244,7 +326,7 @@
             color: var(--text-primary);
         }
 
-        /* Dedicated Full-Screen Admin Page */
+        /* Admin Dashboard */
         #adminView {
             display: none;
         }
@@ -252,12 +334,18 @@
         .admin-header-badge {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            justify-content: space-between;
             margin-bottom: 2rem;
             padding: 1rem;
             background-color: rgba(56, 189, 248, 0.08);
             border: 1px solid var(--accent-cyan);
             border-radius: 8px;
+        }
+
+        .badge-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
         }
 
         .permission-pill {
@@ -270,6 +358,24 @@
             font-family: var(--font-mono);
         }
 
+        .timeout-counter {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--accent-cyan);
+        }
+
+        .sync-banner {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--accent-green);
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
         .admin-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -280,6 +386,10 @@
         @media (max-width: 850px) {
             .admin-grid {
                 grid-template-columns: 1fr;
+            }
+            .sync-banner {
+                flex-direction: column;
+                align-items: flex-start;
             }
         }
 
@@ -311,6 +421,16 @@
             color: var(--text-primary);
             border-radius: 4px;
             font-family: inherit;
+        }
+
+        .form-group input[type="file"] {
+            padding: 0.4rem;
+            background-color: transparent;
+            border: 1px dashed var(--bg-accent);
+        }
+
+        .form-group input[type="datetime-local"] {
+            color-scheme: dark;
         }
 
         .table-container {
@@ -361,7 +481,9 @@
             border: 1px solid var(--bg-accent);
             border-radius: 8px;
             width: 100%;
-            max-width: 550px;
+            max-width: 650px;
+            max-height: 85vh;
+            overflow-y: auto;
             padding: 2rem;
             box-shadow: 0 10px 25px rgba(0,0,0,0.5);
             position: relative;
@@ -382,7 +504,8 @@
             margin-top: 1rem;
             color: var(--text-secondary);
             font-size: 0.95rem;
-            line-height: 1.6;
+            line-height: 1.8;
+            white-space: pre-wrap;
         }
 
         footer {
@@ -400,7 +523,7 @@
         <div class="nav-container">
             <a class="logo" onclick="navigateToPublic()">TheDailyTerminal</a>
             <nav id="navLinks">
-                <a href="#news">Transmissions</a>
+                <a href="#news">Transmissions &amp; Articles</a>
                 <a href="#apps">Repository</a>
                 <button class="admin-nav-btn" id="authBtn" onclick="openLoginModal()">Admin Login</button>
             </nav>
@@ -411,88 +534,115 @@
         <!-- ================= PUBLIC SECTION ================= -->
         <div id="publicView">
             <section class="hero">
-                <h1>Hardware, Kernels & Android Releases</h1>
-                <p>Your central console for developer insights, zero-day alerts, and verified Android application packages.</p>
+                <h1>Hardware, Kernels &amp; Android Releases</h1>
+                <p>Your central console for developer insights, zero-day alerts, published articles, and verified Android application packages.</p>
             </section>
 
             <section id="news">
-                <h2 class="section-title">Latest Transmissions</h2>
+                <div class="section-header">
+                    <h2 class="section-title">Latest Transmissions &amp; Articles</h2>
+                    <div class="controls-wrapper">
+                        <input type="text" id="articleSearch" class="search-input" placeholder="Search articles..." oninput="handleSearchChange()">
+                    </div>
+                </div>
                 <div class="news-grid" id="newsGrid"></div>
+                <div class="pagination-container" id="paginationControls"></div>
             </section>
 
             <section id="apps">
-                <h2 class="section-title">Android Repository</h2>
+                <div class="section-header">
+                    <h2 class="section-title">Android Repository</h2>
+                </div>
                 <div class="app-list" id="appList"></div>
             </section>
         </div>
 
-        <!-- ================= FULL PERMISSION ADMIN SECTION ================= -->
+        <!-- ================= ADMIN SECTION ================= -->
         <div id="adminView">
             <div class="admin-header-badge">
-                <span class="permission-pill">ROOT / FULL ACCESS</span>
-                <div>
-                    <strong>Superuser Mode Active:</strong> Authenticated as <code>admin</code> with write, edit, and deletion privileges across repository storage.
+                <div class="badge-info">
+                    <span class="permission-pill">ROOT / FULL ACCESS</span>
+                    <div>
+                        <strong>Superuser Mode Active:</strong> Logged in as <code>admin</code>. Full write and sync privileges.
+                    </div>
                 </div>
+                <div class="timeout-counter" id="sessionTimer">Timeout: 15:00</div>
+            </div>
+
+            <div class="sync-banner">
+                <div>
+                    <strong style="color: var(--accent-green); display: block; margin-bottom: 0.25rem;">Sync Published Data to Source Code</strong>
+                    <span style="font-size: 0.85rem; color: var(--text-secondary);">Downloads the entire HTML file with your current publications and uploaded APK packages written directly into the code arrays.</span>
+                </div>
+                <button class="btn btn-download" onclick="downloadSyncedSource()">Export Synced HTML</button>
             </div>
 
             <!-- Upload Consoles -->
             <div class="admin-grid">
-                <!-- Transmission Publisher -->
+                <!-- Transmission & Article Publisher -->
                 <div class="admin-panel-card">
-                    <h3 style="margin-bottom: 1rem; color: var(--accent-cyan);">Upload Transmission</h3>
+                    <h3 style="margin-bottom: 1rem; color: var(--accent-cyan);">Upload Article / Transmission</h3>
                     <form id="formTransmission" onsubmit="handleTransmissionUpload(event)">
                         <div class="form-group">
-                            <label>Classification Category</label>
-                            <select id="newsTag" required>
+                            <label>Classification Type</label>
+                            <select id="newsTag" required="">
+                                <option value="Articles">Articles</option>
                                 <option value="Android OS">Android OS</option>
-                                <option value="Hardware">Hardware</option>
-                                <option value="Security">Security</option>
-                                <option value="Kernel">Kernel</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Headline Title</label>
-                            <input type="text" id="newsTitle" required placeholder="Subject headline">
+                            <label>Publish Date &amp; Time (Optional)</label>
+                            <input type="datetime-local" id="newsPublishDate">
                         </div>
                         <div class="form-group">
-                            <label>Card Abstract</label>
-                            <input type="text" id="newsSummary" required placeholder="Short summary for card view">
+                            <label>Import Document File (.txt, .md, .csv)</label>
+                            <input type="file" id="articleDocFile" accept=".txt,.md,.csv" onchange="handleArticleDocRead(event)">
+                        </div>
+                        <div class="form-group">
+                            <label>Headline / Article Title</label>
+                            <input type="text" id="newsTitle" required="" placeholder="Subject title">
+                        </div>
+                        <div class="form-group">
+                            <label>Card Excerpt / Short Summary (Optional: auto-extracted if empty)</label>
+                            <input type="text" id="newsSummary" placeholder="Short description for preview cards">
                         </div>
                         <div class="form-group">
                             <label>Full Content Payload</label>
-                            <textarea id="newsContent" rows="4" required placeholder="Complete article body..."></textarea>
+                            <textarea id="newsContent" rows="6" required="" placeholder="Write or paste full article content..."></textarea>
                         </div>
-                        <button type="submit" class="btn" style="width: 100%;">Broadcast Payload</button>
+                        <button type="submit" class="btn" style="width: 100%;">Publish Article to Hub</button>
                     </form>
                 </div>
 
-                <!-- APK Indexer -->
+                <!-- APK Indexer & File Upload -->
                 <div class="admin-panel-card">
-                    <h3 style="margin-bottom: 1rem; color: var(--accent-green);">Index New APK Binary</h3>
+                    <h3 style="margin-bottom: 1rem; color: var(--accent-green);">Index &amp; Upload APK Binary</h3>
                     <form id="formApk" onsubmit="handleApkUpload(event)">
                         <div class="form-group">
-                            <label>Application Package Label</label>
-                            <input type="text" id="appName" required placeholder="e.g., Network Monitor Pro">
+                            <label>Select APK File (.apk)</label>
+                            <input type="file" id="apkFile" accept=".apk" required="" onchange="handleApkSelection(event)">
+                        </div>
+                        <div class="form-group">
+                            <label>Application Name</label>
+                            <input type="text" id="appName" required="" placeholder="e.g., Network Monitor Pro">
                         </div>
                         <div class="form-group">
                             <label>Target API / Min SDK Version</label>
-                            <input type="text" id="appVersion" required placeholder="e.g., v1.0.0 (API 31)">
+                            <input type="text" id="appVersion" required="" placeholder="e.g., Android 12+ (API 31)">
                         </div>
                         <div class="form-group">
-                            <label>Manifest Details & Notes</label>
-                            <textarea id="appDetails" rows="2" required placeholder="Permissions, architecture, change notes..."></textarea>
+                            <label>Manifest Details &amp; Notes</label>
+                            <textarea id="appDetails" rows="4" required="" placeholder="Package features, permissions, change notes..."></textarea>
                         </div>
-                        <div class="form-group">
-                            <label>Select Binary File (.apk)</label>
-                            <input type="file" id="apkFile" accept=".apk" required>
-                        </div>
-                        <button type="submit" class="btn btn-download" style="width: 100%;">Push to Repository</button>
+                        <button type="submit" class="btn btn-download" style="width: 100%;">Upload APK to Repository</button>
                     </form>
                 </div>
             </div>
 
-            <!-- Permission Management: Data Grids -->
-            <h2 class="section-title">Manage Live Transmissions</h2>
+            <!-- Management Data Grids -->
+            <div class="section-header">
+                <h2 class="section-title">Manage Transmissions &amp; Articles</h2>
+            </div>
             <div class="table-container">
                 <table>
                     <thead>
@@ -507,13 +657,15 @@
                 </table>
             </div>
 
-            <h2 class="section-title">Manage Indexed Applications</h2>
+            <div class="section-header">
+                <h2 class="section-title">Manage Indexed APK Binaries</h2>
+            </div>
             <div class="table-container">
                 <table>
                     <thead>
                         <tr>
                             <th>Application</th>
-                            <th>Package ID</th>
+                            <th>File Name</th>
                             <th>Size</th>
                             <th>Target API</th>
                             <th>Operations</th>
@@ -540,15 +692,15 @@
     <div class="modal-overlay" id="authModal">
         <div class="modal-box" style="max-width: 380px;">
             <button class="modal-close" onclick="closeModal('authModal')">&times;</button>
-            <h3 style="margin-bottom: 1rem; color: var(--accent-cyan); font-family: var(--font-mono);">>_ Enter Root Credentials</h3>
+            <h3 style="margin-bottom: 1rem; color: var(--accent-cyan); font-family: var(--font-mono);">&gt;_ Enter Root Credentials</h3>
             <form onsubmit="handleLogin(event)">
                 <div class="form-group">
                     <label>Identity</label>
-                    <input type="text" id="adminUser" placeholder="admin" required>
+                    <input type="text" id="adminUser" placeholder="Enter username" required="" autocomplete="username">
                 </div>
                 <div class="form-group">
                     <label>Passkey</label>
-                    <input type="password" id="adminPass" placeholder="admin" required>
+                    <input type="password" id="adminPass" placeholder="Enter password" required="" autocomplete="current-password">
                 </div>
                 <p id="authError" style="color: var(--accent-red); font-size: 0.8rem; margin-bottom: 0.5rem; display: none;">Invalid credentials.</p>
                 <button type="submit" class="btn" style="width: 100%;">Authorize Session</button>
@@ -561,139 +713,405 @@
     </footer>
 
     <script>
-        // In-Memory Storage
-        const transmissions = [
-            {
-                id: 1,
-                tag: 'Android OS',
-                title: 'AOSP Mainline Architecture Enhancements',
-                summary: 'Google decouples additional low-level graphics components from platform updates, standardizing driver interfaces.',
-                content: 'Project Mainline continues its modularization of the core Android stack. Under recent changes, native graphics driver surfaces and HAL interfaces are transitioning toward self-contained APEX modules. This reduces reliance on full system OTA images from OEMs for critical graphical zero-day fixes.',
-                time: '09-SEP-2026 // 14:30 UTC'
-            },
-            {
-                id: 2,
-                tag: 'Hardware',
-                title: 'RISC-V Silicon Targets Mobile Compute',
-                summary: 'Fabrication trials demonstrate promising power curves for open ISA mobile cores in embedded applications.',
-                content: 'Recent tape-outs targeting modern multi-core profiles showcase RISC-V compute efficiency exceeding previous ARM-based evaluations on sub-12nm nodes. Architectural extensions for vector calculations are making the platform feasible for mobile neural networking tasks.',
-                time: '09-SEP-2026 // 11:15 UTC'
-            },
-            {
-                id: 3,
-                tag: 'Security',
-                title: 'Sandboxing Updates in Native Runtimes',
-                summary: 'Analysis of isolation layers designed to neutralize memory safety vulnerabilities in contemporary ART environments.',
-                content: 'Memory-tagging extensions (MTE) combined with runtime hardware boundaries have dramatically limited exploitation pathways for buffer overflows in low-level Native Development Kit (NDK) applications running alongside Android Runtime components.',
-                time: '08-SEP-2026 // 22:45 UTC'
-            }
+        /* == SYNC_DATA_START == */
+        const initialTransmissions = [
+          {
+                    "id": 1790611324107,
+                    "tag": "Articles",
+                    "title": "100DaysOfLinuxCommands – Day 7: touch",
+                    "summary": "🐧 #100DaysOfLinuxCommands – Day 7: touch A tiny command with a huge role in Linux 📄✨ 🔹 Command: touch (Create Empty Files / Update Timestamps) T...",
+                    "content": "🐧 #100DaysOfLinuxCommands – Day 7: touch\n\nA tiny command with a huge role in Linux 📄✨\n\n🔹 Command: touch (Create Empty Files / Update Timestamps)\n\nThe touch command is mainly used to:\n\n✅ Create new empty files\n✅ Update file timestamps without modifying content\n\n📌 Basic Usage:\n\n👉touch file.txt\n\n👉 Creates an empty file named file.txt\n\n⚙️ Useful Options:\n\n\ntouch file1.txt file2.txt    # Create multiple files\ntouch -a file.txt            # Update access time only\ntouch -m file.txt            # Update modified time only\ntouch -t 202605171200 file.txt   # Set custom timestamp\n\n💡 Real-World Use Cases:\n\n✅ Quickly create config or log files\n✅ Generate placeholder files for testing\n✅ Update timestamps in scripts\n✅ Initialize project structure faster\n\n🧪 Practical Example:\n\ntouch app.log\n👉 Creates a log file instantly\n\ntouch index.html style.css script.js\n👉 Creates multiple project files in one command\n\n⚡ Tips &amp; Best Practices:\n\n✔️ Use touch to prepare files before scripting\n✔️ Combine with mkdir for quick project setup\n✔️ Great for testing file permissions and ownership\n✔️ Avoid overwriting existing files accidentally\n\n🤖 Mini Automation Idea:\nBash\n#!/bin/bash\n# Create daily log file automatically\n\nlogfile=&quot;log_$(date +%F).txt&quot;\ntouch &quot;$logfile&quot;\n\necho &quot;📝 Created: $logfile&quot;\n\n📌 touch may look simple… but it’s one of the fastest ways to create and manage files in Linux.\n\n💬 What’s your most common use of touch — creating files or updating timestamps? 👇",
+                    "time": "23-SEP-2026 // 19:31 LOCAL"
+          },
+          {
+                    "id": 1790611286971,
+                    "tag": "Articles",
+                    "title": "100DaysOfLinuxCommands – Day 6: mv",
+                    "summary": "🐧 #100DaysOfLinuxCommands – Day 6: mv Sometimes organizing files is just moving things to the right place 📂➡️📂 🔹 Command: mv (Move / Rename File...",
+                    "content": "🐧 #100DaysOfLinuxCommands – Day 6: mv\n\nSometimes organizing files is just moving things to the right place 📂➡️📂\n\n🔹 Command: mv (Move / Rename Files &amp; Directories)\nThe mv command is used to move files/directories from one location to another or rename them.\n\n📌 Basic Usage:\n\nmv old_file.txt new_file.txt\n\n👉 Renames a file\n\nmv file.txt /home/user/Documents/\n\n👉 Moves file to another directory\n⚙️ Useful Options:\n\n\nmv -i file.txt backup/    # Ask before overwrite\nmv -v file.txt backup/    # Show move details\nmv -u source dest         # Move only if newer\n\n\n💡 Real-World Use Cases:\n\n✅ Rename log files with timestamps\n✅ Organize downloads automatically\n✅ Move backups to archive folders\n✅ Rearrange project structure safely\n🧪 Practical Example:\n\n\nmv report.txt report_2026.txt\n\n👉 Renames report file with year\n\nmv *.log logs/\n\n👉 Moves all log files into logs directory\n\n⚡ Tips &amp; Best Practices:\n\n✔️ Use -i to avoid accidental overwrites\n✔️ Combine with wildcards (*) carefully\n✔️ Verify destination before moving critical files\n✔️ Use meaningful file names while renaming\n\n🤖 Mini Automation Idea:\n\nBash\n#!/bin/bash\n# Move all .jpg files into Images folder\n\nmkdir -p Images\nmv *.jpg Images/\n\necho &quot;📸 Images organized successfully!&quot;\n\n📌 mv is not just about moving files — it’s about keeping systems organized and manageable.\n💬 What do you use mv for most often — moving or renaming? 👇",
+                    "time": "09-SEP-2026 // 19:31 LOCAL"
+          },
+          {
+                    "id": 1790611232868,
+                    "tag": "Articles",
+                    "title": "100DaysOfLinuxCommands – Day 5: cp",
+                    "summary": "🐧 #100DaysOfLinuxCommands – Day 5: cp Copying files is one of the most common tasks in Linux — and cp makes it fast and flexible 📂➡️📂 🔹 Command:...",
+                    "content": "🐧 #100DaysOfLinuxCommands – Day 5: cp\n\nCopying files is one of the most common tasks in Linux — and cp makes it fast and flexible 📂➡️📂\n\n🔹 Command: cp (Copy Files &amp; Directories)\nThe cp command is used to copy files and directories from one location to another.\n\n📌 Basic Usage:\n\n👉cp source_file destination\n\n👉 Copies a file to another location\n\n⚙️ Useful Options:\n\n\ncp -r folder1 backup/      # Copy directories recursively\ncp -v file.txt backup/     # Show copy progress\ncp -i file.txt backup/     # Ask before overwrite\ncp -u file.txt backup/     # Copy only if newer\n\n💡 Real-World Use Cases:\n\n✅ Create backups before editing files\n✅ Copy configuration files between environments\n✅ Duplicate project folders safely\n✅ Automate daily backups\n\n🧪 Practical Example:\n\n\ncp nginx.conf nginx.conf.bak\n\n👉 Creates a backup before modifying the config\n\ncp -r project/ project_backup/\n\n👉 Copies the entire project directory\n\n⚡ Tips &amp; Best Practices:\n\n✔️ Use -i to prevent accidental overwrites\n✔️ Use -r carefully — it copies everything recursively\n✔️ Keep backups with .bak extension\n✔️ Verify copied files using ls or diff\n\n🤖 Mini Automation Idea:\nBash\n#!/bin/bash\n# Daily backup script\n\nbackup_dir=&quot;backup_$(date +%F)&quot;\nmkdir -p &quot;$backup_dir&quot;\n\ncp -r ~/documents/* &quot;$backup_dir&quot;\n\necho &quot;✅ Backup completed in $backup_dir&quot;\n\n📌 cp is more than a copy command — it’s one of the easiest ways to protect your data.\n\n💬 What’s your most-used cp option?\n-r, -i, or -v? 👇",
+                    "time": "28-AUG-2026 // 22:30 LOCAL"
+          },
+          {
+                    "id": 1790611175075,
+                    "tag": "Articles",
+                    "title": "100DaysOfLinuxCommands – Day 4: rmdir",
+                    "summary": "🐧 #100DaysOfLinuxCommands – Day 4: rmdir Cleaning up is just as important as creating 📁❌ 🔹 Command: rmdir (Remove Directory) The rmdir command is...",
+                    "content": "🐧 #100DaysOfLinuxCommands – Day 4: rmdir\n\nCleaning up is just as important as creating 📁❌\n\n🔹 Command: rmdir (Remove Directory)\nThe rmdir command is used to delete empty directories in Linux.\n📌 Basic Usage:\n\n\n👉rmdir folder_name\n\n👉 Removes the directory only if it’s empty\n\n⚙️ Useful Options:\n\n👉rmdir -p parent/child/grandchild   # Remove nested empty directories\n👉rmdir -v folder_name               # Show output message\n\n💡 Real-World Use Cases:\n\n✅ Clean up unused empty folders\n✅ Remove temporary directories after tasks\n✅ Maintain clean project structure\n✅ Used in scripts for housekeeping\n\n🧪 Practical Example:\n\n👉mkdir -p test/demo\n👉rmdir -p test/demo\n👉 Removes both demo and test if they’re empty\n\n⚠️ Important Note:\n\nrmdir folder_name\n\n❌ Fails if the directory is not empty\n✔️ Use rm -r if you want to remove directories with files (be careful!)\n\n⚡ Tips &amp; Best Practices:\n\n✔️ Use rmdir when you want safe deletion\n✔️ Prefer rmdir over rm -r to avoid accidental data loss\n✔️ Combine with scripts to clean empty directories\n✔️ Always double-check before deleting\n\n🤖 Mini Automation Idea:\nBash\n#!/bin/bash\n# Remove all empty directories in current path\n\nfind . -type d -empty -exec rmdir {} \\;\necho &quot;🧹 Cleaned empty directories&quot;\n\n📌 rmdir is simple… but it helps keep your system clean and organized.\n\n💬 Do you use rmdir or directly go with rm -r?",
+                    "time": "18-AUG-2026 // 21:29 LOCAL"
+          },
+          {
+                    "id": 1790611146963,
+                    "tag": "Articles",
+                    "title": "100DaysOfLinuxCommands – Day 3: cd",
+                    "summary": "🐧 #100DaysOfLinuxCommands – Day 3: cd Navigation is everything in Linux… and cd is your steering wheel 🚗 🔹 Command: cd (Change Directory) The cd ...",
+                    "content": "🐧 #100DaysOfLinuxCommands – Day 3: cd\nNavigation is everything in Linux… and cd is your steering wheel 🚗\n\n🔹 Command: cd (Change Directory)\n\nThe cd command is used to move between directories in the file system.\n\n📌 Basic Usage:\n\n👉cd /path/to/directory\n\n👉 Moves you to the specified directory\n\n⚙️ Useful Shortcuts:\n\ncd ~        # Go to home directory\ncd ..       # Move one level up\ncd -        # Go to the previous directory\ncd /        # Go to root directory\ncd          # Same as &#039;cd ~&#039;\n\n💡 Real-World Use Cases:\n\n✅ Navigate to project folders quickly\n✅ Move between log directories while debugging\n✅ Switch between environments (dev/test folders)\n✅ Access config or system directories\n\n🧪 Practical Example:\n\n\n👉cd /var/log\n👉ls\n\n👉 Navigate to system logs and list files\nBash\ncd -\n👉 Instantly go back to your previous directory\n\n⚡ Tips &amp; Best Practices:\n\n✔️ Use cd - to save time switching between two folders\n✔️ Use cd .. instead of typing full path repeatedly\n✔️ Combine with pwd to confirm location\n✔️ Use tab completion to avoid typing errors\n\n🤖 Mini Automation Idea:\n\nBash\n#!/bin/bash\n# Quick navigation to project folder\n\ncd ~/projects/my-app || exit\necho &quot;📂 Now in $(pwd)&quot;\nls\n\n📌 Mastering cd means faster navigation and fewer mistakes.\n\n💬 What’s your most-used cd shortcut?\ncd - or cd ..? 👇",
+                    "time": "11-AUG-2026 // 17:28 LOCAL"
+          },
+          {
+                    "id": 1790611032819,
+                    "tag": "Articles",
+                    "title": "100DaysOfLinuxCommands – Day 2: pwd",
+                    "summary": "🐧 #100DaysOfLinuxCommands – Day 2: pwd Sometimes the most powerful commands are the simplest ones. 🔹 Command: pwd (Print Working Directory) The p...",
+                    "content": "🐧 #100DaysOfLinuxCommands – Day 2: pwd\n\nSometimes the most powerful commands are the simplest ones.\n\n🔹 Command: pwd (Print Working Directory)\n\nThe pwd command shows your current location in the Linux file system.\n\n📌 Basic Usage:\n\n👉pwd\nmobile\n👉 Outputs the full path of your current directory\n\n⚙️ Useful Options:\n\n\n👉pwd -P   # Show physical path (resolves symbolic links)\n👉pwd -L   # Show logical path (default, keeps symlinks)\n\n💡 Real-World Use Cases:\n\n✅ Know exactly where you are before running commands\n✅ Avoid deleting or modifying wrong files\n✅ Useful in scripts for dynamic paths\n✅ Debug navigation issues in complex directories\n\n🧪 Practical Example:\n\n\ncd /var/log\npwd\n\n👉 Output:\n\n/var/log\n\n✔️ Confirms you&#039;re in the correct directory before checking logs\n⚡ Tips &amp; Best Practices:\n✔️ Always run pwd if you feel “lost” in terminal\n✔️ Combine with cd to verify navigation\n✔️ Use in scripts to avoid hardcoding paths\n✔️ Helpful before running dangerous commands like rm\n\n🤖 Mini Automation Idea:\n🌟Bash\n#!/bin/bash\n# Backup current directory name with timestamp\n\ndir=$(basename &quot;$(pwd)&quot;)\ntar -czf &quot;${dir}_backup_$(date +%F).tar.gz&quot; .\necho &quot;✅ Backup created for $dir&quot;\n\n\n📌 It may look basic… but pwd saves you from costly mistakes.\n\n💬 Do you use pwd often or rely on prompt path?\nLet’s discuss 👇",
+                    "time": "30-JUL-2026 // 21:27 LOCAL"
+          },
+          {
+                    "id": 1790610997835,
+                    "tag": "Articles",
+                    "title": "100DaysOfLinuxCommands – Day 1: ls",
+                    "summary": "🐧 #100DaysOfLinuxCommands – Day 1: ls Starting my journey with one of the most used Linux commands 👇 🔹 Command: ls (List Directory Contents) The l...",
+                    "content": "🐧 #100DaysOfLinuxCommands – Day 1: ls\nStarting my journey with one of the most used Linux commands 👇\n\n🔹 Command: ls (List Directory Contents)\nThe ls command is used to view files and directories in your current location.\n\n📌 Basic Usage:\n\n👉ls\n\n👉 Lists files in the current directory\n\n⚙️ Useful Options:\n\n\nls -l     # Detailed list (permissions, owner, size)\nls -a     # Show hidden files\nls -lh    # Human-readable file sizes\nls -lt    # Sort by latest modified\nls -R     # Recursive listing\n\n💡 Real-World Use Cases:\n\n✅ Quickly check files in a project folder\n✅ Identify hidden config files like .env, .git\n✅ Debug issues by inspecting logs or directories\n✅ Verify file permissions before execution\n\n🧪 Practical Example:\n\n\n👉ls -lh /var/log\n\n👉 View system logs with readable file size\n\n⚡ Tips &amp; Best Practices:\n\n✔️ Use ls -lh instead of plain ls for better readability\n✔️ Combine flags: ls -lah (all + long + human readable)\n✔️ Use ls -lt to quickly find recent changes\n✔️ Avoid ls -R on large directories (can flood output)\n\n🤖 Mini Automation Idea:\n\nBash\n#!/bin/bash\n# List top 5 largest files in current directory\n\nls -lhS | head -n 6\n\n📌 Simple command… but used hundreds of times daily by developers and admins.\n💬 Did you know all these ls tricks?",
+                    "time": "28-JUL-2026 // 21:26 LOCAL"
+          },
+          {
+                    "id": 1789834377816,
+                    "tag": "Articles",
+                    "title": "Docker Image and Container",
+                    "summary": "🚢 Confused between Docker images and containers? You’re not alone! Let me explain it the way I finally understood it 👇 --- 🧱 Docker Image = Blue...",
+                    "content": "🚢 Confused between Docker images and containers? You’re not alone!\nLet me explain it the way I finally understood it 👇\n\n\n---\n\n🧱 Docker Image = Blueprint\n\nIt&#039;s a read-only template\n\nContains app code + dependencies\n\nExample: A Python app image with Flask and Pandas\n\nThink of it like a class in OOP\n\n\ndocker build -t myapp:1.0 .\n\n\n---\n\n📦 Docker Container = Running Instance\n\nIt&#039;s the live, executable version of the image\n\nHas its own process, memory, and networking\n\nYou can start, stop, or remove it\n\nThink of it like an object created from a class\n\n\ndocker run -d -p 5000:5000 myapp:1.0\n\n\n\n---\n\n💡 Real-World Analogy:\n\n&gt; An image is a recipe, and a container is the dish you cook from it.\nYou can make as many dishes (containers) as you want from the same recipe (image)!\n\n\n\n\n---",
+                    "time": "22-JUL-2026 // 21:42 LOCAL"
+          },
+          {
+                    "id": 1789834260014,
+                    "tag": "Articles",
+                    "title": "op Git Commands Every Developer Should Know",
+                    "summary": "🚀 Git isn't just a tool — it's a developer's time machine. I’ve been focusing on sharpening my Git skills and using it more efficiently in my daily w...",
+                    "content": "🚀 Git isn&#039;t just a tool — it&#039;s a developer&#039;s time machine. I’ve been focusing on sharpening my Git skills and using it more efficiently in my daily workflow.\n\nHere are some of the essential Git commands I use regularly:\n\n\n---\n\n🔧 Top Git Commands Every Developer Should Know\n\n📍 git init — Start a new Git repository\n📍 git clone &lt;repo_url&gt; — Clone existing repo\n📍 git status — Check file changes\n📍 git add . — Stage all changes\n📍 git commit -m &quot;Your message&quot; — Save changes with a message\n📍 git log — View commit history\n📍 git branch — List branches\n📍 git checkout -b feature-xyz — Create and switch to a new branch\n📍 git merge branch-name — Merge a branch\n📍 git pull — Get latest changes from remote\n📍 git push — Send your changes to GitHub\n\n\n---\n\n💡 Pro Tip:\nBefore you push, always pull.\nBefore you commit, always test.\nBefore you branch, always name it clearly.\n\n\n---\n\n📦 Git helps me: ✅ Collaborate better\n✅ Track every code change\n✅ Roll back mistakes\n✅ Manage features with branches",
+                    "time": "17-JUL-2026 // 21:34 LOCAL"
+          },
+          {
+                    "id": 1789833792221,
+                    "tag": "Articles",
+                    "title": "30 Linux Commands",
+                    "summary": "Whether you're a beginner or a seasoned DevOps engineer, mastering Linux commands is non-negotiable 🧠. Here’s a list of 30 powerful and commonly used...",
+                    "content": "Whether you&#039;re a beginner or a seasoned DevOps engineer, mastering Linux commands is non-negotiable 🧠. Here’s a list of 30 powerful and commonly used Linux commands that have helped me in my day-to-day work:\n\n1. ls         → List directory contents  \n2. cd         → Change directory  \n3. pwd        → Show current directory  \n4. mkdir      → Create a new folder  \n5. rm         → Remove files or folders  \n6. cp         → Copy files or folders  \n7. mv         → Move or rename files  \n8. touch      → Create empty file  \n9. cat        → View file contents  \n10. less      → View file contents (scrollable)  \n11. head      → View first lines of a file  \n12. tail      → View last lines of a file  \n13. grep      → Search inside files  \n14. find      → Search for files/folders  \n15. chmod     → Change permissions  \n16. chown     → Change file ownership  \n17. df        → Disk space usage  \n18. du        → Folder/file size  \n19. top       → Live process monitoring  \n20. ps        → Snapshot of running processes  \n21. kill      → Terminate a process  \n22. tar       → Archive files/folders  \n23. unzip     → Extract zip files  \n24. history   → Show previously used commands  \n25. whoami    → Current logged in user  \n26. hostname  → Display system name  \n27. ifconfig  → Network configuration (legacy)  \n28. ip a      → Show IP addresses  \n29. ping      → Check network connectivity  \n30. crontab   → Schedule recurring tasks\n\nThese are just the basics—but knowing them saves hours of time when managing servers or writing automation scripts.\n\n✅ Bonus Tip: Combine them with shell scripting to create powerful automated workflows.\n\nWhich Linux command do you use the most? Drop it in the comments 👇",
+                    "time": "09-JUL-2026 // 21:33 LOCAL"
+          },
+          {
+                    "id": 1789833744860,
+                    "tag": "Articles",
+                    "title": "Bash scripting is a silent hero",
+                    "summary": "In the world of IT and DevOps, Shell Scripting is a silent hero. Whether it's automating server tasks, scheduling backups, monitoring logs, or managin...",
+                    "content": "In the world of IT and DevOps, Shell Scripting is a silent hero. Whether it&#039;s automating server tasks, scheduling backups, monitoring logs, or managing deployments—shell scripts can save hours of manual effort.\n\nRecently, I’ve been working on writing shell scripts to:\n✅ Automate system cleanups\n✅ Trigger backups and notifications\n✅ Monitor server health and services\n✅ Integrate with Jenkins for CI/CD tasks\n\nWhat I love most?\n➡️ It&#039;s lightweight\n➡️ Easy to integrate with cronjobs\n➡️ Speaks directly to the system\n\nIf you&#039;re in IT support, DevOps, or even a developer—investing time in learning shell scripting is a game changer. A few lines of code can create a huge impact.\n\n💡 Tip: Start with small scripts. The more you automate, the more efficient you become.\n\nHave you used shell scripting in your projects? Would love to hear how it helped you! 💬",
+                    "time": "30-JUN-2026 // 21:32 LOCAL"
+          },
+          {
+                    "id": 1789806422986,
+                    "tag": "Articles",
+                    "title": "Coding and programming ",
+                    "summary": "In tech circles, \"coding\" and \"programming\" are often used interchangeably — but they’re not the same. This visual does a great job of breaking it dow...",
+                    "content": "In tech circles, &quot;coding&quot; and &quot;programming&quot; are often used interchangeably — but they’re not the same. This visual does a great job of breaking it down 👇\n\n💻 Coding\n\nThink of coding as the act of translating logic into a machine-readable language. It’s about writing syntax, using languages like Python, Java, or C++, to solve specific problems or build functionalities.\n\n✅ Writing lines of code\n✅ Following language rules &amp; syntax\n✅ Providing machine-readable inputs\n✅ A vital subset of programming\n\n\n---\n\n🧠 Programming\n\nProgramming goes beyond just writing code — it’s about building complete software solutions. It involves:\n\n🔹 Understanding requirements\n🔹 Planning the software architecture\n🔹 Translating logic into code (coding!)\n🔹 Testing and debugging\n🔹 Writing documentation\n🔹 Maintaining the product over time\n\nCoding is a key part of programming — but programming is the bigger picture. It&#039;s like the difference between writing words and crafting an entire novel. 📖\n\n\n---\n\n💡 Whether you&#039;re a beginner writing your first script or an architect designing scalable systems — understanding this distinction helps you grow from a coder to a true software engineer.",
+                    "time": "15-JUN-2026 // 18:56 LOCAL"
+          },
+          {
+                    "id": 1789806321306,
+                    "tag": "Articles",
+                    "title": "DevOps Learning",
+                    "summary": "🧠 DevOps is Not About Tools. It’s About Mindset. You can learn Jenkins, Docker, or Kubernetes in weeks. But understanding DevOps? That takes a shif...",
+                    "content": "🧠 DevOps is Not About Tools. It’s About Mindset.\n\nYou can learn Jenkins, Docker, or Kubernetes in weeks.\n\nBut understanding DevOps? That takes a shift in thinking.\n\n🔍 The Misconception:\nMany believe DevOps = tools stack\n👉 Jenkins + Docker + Terraform = DevOps ❌\nBut tools are just enablers, not the foundation.\n💡 The Real DevOps Mindset:\n\n🔹 Collaboration over silos\nDevelopers and operations working together, not in isolation\n🔹 Automation over repetition\nIf you’re doing it twice, automate it\n🔹 Ownership over blame\n“You build it, you run it”\n🔹 Continuous improvement over perfection\nShip, learn, improve, repeat\n🔹 Feedback over assumptions\nMonitor, measure, and adapt quickly\n\n🧱 Tools Without Mindset = Chaos\nYou can have the best tools in the world…\n\nBut without the right mindset:\n❌ Pipelines break and no one owns them\n❌ Deployments become risky\n❌ Teams blame each other\n❌ Innovation slows down\n\n🚀 My Take:\nDevOps starts when:\nDevelopers care about production\nOps understand development\nEveryone shares responsibility\nThat’s when tools actually start making sense.",
+                    "time": "20-MAY-2026 // 19:54 LOCAL"
+          }
         ];
 
-        const applications = [
-            {
-                id: 1,
-                name: 'TerminalTerm v4.1',
-                size: '14.2 MB',
-                target: 'Android 12+',
-                package: 'com.term.main',
-                filename: 'TerminalTerm-v4.1.apk',
-                details: 'Minimalistic terminal emulator with native ZSH and Bash integrations, full UTF-8 support, hardware keyboard shortcuts, and integrated SSH client tooling.'
-            },
-            {
-                id: 2,
-                name: 'KernelTweaker Lite',
-                size: '6.8 MB',
-                target: 'Android 10+ (Root)',
-                package: 'org.kernel.tweak',
-                filename: 'KernelTweaker-Lite.apk',
-                details: 'Allows real-time modification of CPU governors, I/O schedulers, thermal mitigation limits, and voltage offsets for rooted Linux kernels on ARM64 silicon.'
-            },
-            {
-                id: 3,
-                name: 'LogCat Visualizer',
-                size: '9.5 MB',
-                target: 'Android 11+',
-                package: 'net.logcat.view',
-                filename: 'LogCat-Visualizer.apk',
-                details: 'High-performance real-time system log analyzer with custom PID/tag filtering, regex pattern matching, and exportable debugging dumps.'
+        const initialApplications = [];
+        /* == SYNC_DATA_END == */
+
+        let transmissions = [];
+        try {
+            const storedNews = localStorage.getItem('dt_transmissions');
+            transmissions = storedNews ? JSON.parse(storedNews) : initialTransmissions;
+        } catch (e) {
+            transmissions = initialTransmissions;
+        }
+
+        let applications = [];
+        try {
+            const storedApps = localStorage.getItem('dt_applications');
+            applications = storedApps ? JSON.parse(storedApps) : initialApplications;
+        } catch (e) {
+            applications = initialApplications;
+        }
+
+        // Pagination and Filter State
+        const ITEMS_PER_PAGE = 5;
+        let currentPage = 1;
+
+        function saveStorage() {
+            try {
+                localStorage.setItem('dt_transmissions', JSON.stringify(transmissions));
+            } catch (err) {
+                console.warn('Storage quota exceeded when writing transmissions.', err);
             }
-        ];
 
-        let isAdmin = false;
+            try {
+                localStorage.setItem('dt_applications', JSON.stringify(applications));
+            } catch (err) {
+                console.warn('Storage quota exceeded when writing applications.', err);
+            }
+        }
 
-        // Render Public View
+        function downloadSyncedSource() {
+            const currentDoc = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+            const markerStart = "/* == SYNC_DATA_START == */";
+            const markerEnd = "/* == SYNC_DATA_END == */";
+
+            const startIndex = currentDoc.indexOf(markerStart);
+            const endIndex = currentDoc.indexOf(markerEnd);
+
+            if (startIndex === -1 || endIndex === -1) {
+                alert("Synchronization markers not found. Unable to export source.");
+                return;
+            }
+
+            const cleanTransmissions = JSON.stringify(transmissions, null, 12);
+            const cleanApplications = JSON.stringify(applications, null, 12);
+
+            const replacement = `${markerStart}\n        const initialTransmissions = ${cleanTransmissions};\n\n        const initialApplications = ${cleanApplications};\n        `;
+
+            const finalHtml = currentDoc.substring(0, startIndex) + replacement + currentDoc.substring(endIndex);
+
+            const blob = new Blob([finalHtml], { type: 'text/html' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = "index.html";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(link.href);
+            alert("Export complete. Replace your existing HTML file with this downloaded file to make all publications permanent in the code.");
+        }
+
+        function sanitizeInput(str) {
+            if (!str) return '';
+            return str
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        function formatDisplayDate(dateInput) {
+            const d = dateInput ? new Date(dateInput) : new Date();
+            const year = d.getFullYear();
+            const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+            const month = months[d.getMonth()];
+            const day = String(d.getDate()).padStart(2, '0');
+            const hours = String(d.getHours()).padStart(2, '0');
+            const minutes = String(d.getMinutes()).padStart(2, '0');
+            return `${day}-${month}-${year} // ${hours}:${minutes} LOCAL`;
+        }
+
+        // Session Timeout Handling
+        const TIMEOUT_DURATION = 15 * 60;
+        let secondsRemaining = TIMEOUT_DURATION;
+        let sessionInterval = null;
+
+        function resetActivityTimer() {
+            secondsRemaining = TIMEOUT_DURATION;
+        }
+
+        function startSessionTimeout() {
+            stopSessionTimeout();
+            secondsRemaining = TIMEOUT_DURATION;
+            window.addEventListener('mousemove', resetActivityTimer);
+            window.addEventListener('keydown', resetActivityTimer);
+            window.addEventListener('click', resetActivityTimer);
+
+            sessionInterval = setInterval(() => {
+                secondsRemaining--;
+                const minutes = Math.floor(secondsRemaining / 60);
+                const seconds = secondsRemaining % 60;
+                const timerElem = document.getElementById('sessionTimer');
+                if (timerElem) {
+                    timerElem.textContent = `Timeout: ${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                }
+
+                if (secondsRemaining <= 0) {
+                    alert("Admin session has timed out due to inactivity.");
+                    logoutAdmin();
+                }
+            }, 1000);
+        }
+
+        function stopSessionTimeout() {
+            if (sessionInterval) {
+                clearInterval(sessionInterval);
+                sessionInterval = null;
+            }
+            window.removeEventListener('mousemove', resetActivityTimer);
+            window.removeEventListener('keydown', resetActivityTimer);
+            window.removeEventListener('click', resetActivityTimer);
+        }
+
+        function getAuthStatus() {
+            return sessionStorage.getItem('adminSessionActive') === 'true';
+        }
+
+        function setAuthStatus(active) {
+            if (active) {
+                sessionStorage.setItem('adminSessionActive', 'true');
+            } else {
+                sessionStorage.removeItem('adminSessionActive');
+            }
+        }
+
+        function handleSearchChange() {
+            currentPage = 1;
+            renderPublic();
+        }
+
+        function handleFilterChange() {
+            currentPage = 1;
+            renderPublic();
+        }
+
+        function goToPage(pageNum) {
+            currentPage = pageNum;
+            renderPublic();
+            const section = document.getElementById('news');
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // View Rendering
         function renderPublic() {
-            // Transmissions
+            const filterEl = document.getElementById('categoryFilter');
+            const filter = filterEl ? filterEl.value : 'ALL';
+            const searchEl = document.getElementById('articleSearch');
+            const searchQuery = searchEl ? searchEl.value.trim().toLowerCase() : '';
+
+            // Filter by Category and Search Term
+            const filtered = transmissions.filter(item => {
+                const matchesCategory = (filter === 'ALL' || item.tag.toLowerCase() === filter.toLowerCase());
+                const matchesSearch = !searchQuery || 
+                    item.title.toLowerCase().includes(searchQuery) || 
+                    item.summary.toLowerCase().includes(searchQuery) ||
+                    item.content.toLowerCase().includes(searchQuery);
+                return matchesCategory && matchesSearch;
+            });
+
+            // Pagination Calculations
+            const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE) || 1;
+            if (currentPage > totalPages) {
+                currentPage = totalPages;
+            }
+
+            const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+            const paginatedItems = filtered.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+
             const grid = document.getElementById('newsGrid');
-            grid.innerHTML = transmissions.map(item => `
-                <article class="news-card">
-                    <div>
-                        <span class="tag">${item.tag}</span>
-                        <h3>${item.title}</h3>
-                        <p>${item.summary}</p>
-                    </div>
-                    <div>
-                        <div class="timestamp">${item.time}</div>
-                        <div class="card-actions">
-                            <button class="btn btn-secondary" onclick="readTransmission(${item.id})">Read Article</button>
-                        </div>
-                    </div>
-                </article>
-            `).join('');
+            if (grid) {
+                if (paginatedItems.length === 0) {
+                    grid.innerHTML = `<div style="grid-column: 1 / -1; text-align: center; color: var(--text-secondary); padding: 3rem 0;">No articles match your search or filter criteria.</div>`;
+                } else {
+                    grid.innerHTML = paginatedItems.map(item => `
+                        <article class="news-card">
+                            <div>
+                                <span class="tag ${item.tag === 'Articles' ? 'tag-article' : ''}">${item.tag}</span>
+                                <h3>${item.title}</h3>
+                                <p>${item.summary}</p>
+                            </div>
+                            <div>
+                                <div class="timestamp">${item.time}</div>
+                                <div class="card-actions">
+                                    <button class="btn btn-secondary" onclick="readTransmission(${item.id})">Read Content</button>
+                                </div>
+                            </div>
+                        </article>
+                    `).join('');
+                }
+            }
 
-            // Applications
+            // Render Pagination Controls
+            const paginationEl = document.getElementById('paginationControls');
+            if (paginationEl) {
+                if (totalPages <= 1) {
+                    paginationEl.innerHTML = '';
+                } else {
+                    let buttonsHtml = `
+                        <button class="page-btn" onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>&laquo; Prev</button>
+                    `;
+
+                    for (let i = 1; i <= totalPages; i++) {
+                        buttonsHtml += `
+                            <button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>
+                        `;
+                    }
+
+                    buttonsHtml += `
+                        <button class="page-btn" onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>Next &raquo;</button>
+                    `;
+
+                    paginationEl.innerHTML = buttonsHtml;
+                }
+            }
+
+            // Render Applications
             const list = document.getElementById('appList');
-            list.innerHTML = applications.map(app => `
-                <div class="app-card">
-                    <div class="app-info">
-                        <h4>${app.name}</h4>
-                        <div class="app-meta">Size: ${app.size} • Target: ${app.target} • Package: ${app.package}</div>
+            if (list) {
+                list.innerHTML = applications.map(app => `
+                    <div class="app-card">
+                        <div class="app-info">
+                            <h4>${app.name}</h4>
+                            <div class="app-meta">Size: ${app.size} • Target: ${app.target} • File: <code>${app.filename}</code></div>
+                        </div>
+                        <div class="action-group">
+                            <button class="btn btn-secondary" onclick="readAppDetails(${app.id})">Read Spec</button>
+                            <button class="btn btn-download" onclick="executeApkDownload(${app.id})">Download APK</button>
+                        </div>
                     </div>
-                    <div class="action-group">
-                        <button class="btn btn-secondary" onclick="readAppDetails(${app.id})">Read Spec</button>
-                        <button class="btn btn-download" onclick="triggerDownload('${app.filename}')">Download</button>
-                    </div>
-                </div>
-            `).join('');
+                `).join('');
+            }
         }
 
-        // Render Admin Control Center
         function renderAdmin() {
-            // News CRUD Table
             const newsTable = document.getElementById('adminNewsTable');
-            newsTable.innerHTML = transmissions.map(item => `
-                <tr>
-                    <td><span class="tag">${item.tag}</span></td>
-                    <td><strong>${item.title}</strong></td>
-                    <td class="timestamp">${item.time}</td>
-                    <td>
-                        <div class="action-group">
-                            <button class="btn btn-secondary" onclick="readTransmission(${item.id})">Preview</button>
-                            <button class="btn btn-danger" onclick="deleteTransmission(${item.id})">Delete</button>
-                        </div>
-                    </td>
-                </tr>
-            `).join('');
+            if (newsTable) {
+                newsTable.innerHTML = transmissions.map(item => `
+                    <tr>
+                        <td><span class="tag ${item.tag === 'Articles' ? 'tag-article' : ''}">${item.tag}</span></td>
+                        <td><strong>${item.title}</strong></td>
+                        <td class="timestamp">${item.time}</td>
+                        <td>
+                            <div class="action-group">
+                                <button class="btn btn-secondary" onclick="readTransmission(${item.id})">Preview</button>
+                                <button class="btn btn-danger" onclick="deleteTransmission(${item.id})">Delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                `).join('');
+            }
 
-            // Apps CRUD Table
             const appTable = document.getElementById('adminAppTable');
-            appTable.innerHTML = applications.map(app => `
-                <tr>
-                    <td><strong>${app.name}</strong></td>
-                    <td><code>${app.package}</code></td>
-                    <td>${app.size}</td>
-                    <td>${app.target}</td>
-                    <td>
-                        <div class="action-group">
-                            <button class="btn btn-secondary" onclick="readAppDetails(${app.id})">Preview</button>
-                            <button class="btn btn-danger" onclick="deleteApplication(${app.id})">Purge</button>
-                        </div>
-                    </td>
-                </tr>
-            `).join('');
+            if (appTable) {
+                appTable.innerHTML = applications.map(app => `
+                    <tr>
+                        <td><strong>${app.name}</strong></td>
+                        <td><code>${app.filename}</code></td>
+                        <td>${app.size}</td>
+                        <td>${app.target}</td>
+                        <td>
+                            <div class="action-group">
+                                <button class="btn btn-secondary" onclick="readAppDetails(${app.id})">Spec</button>
+                                <button class="btn btn-danger" onclick="deleteApplication(${app.id})">Purge</button>
+                            </div>
+                        </td>
+                    </tr>
+                `).join('');
+            }
         }
 
-        // Page Navigation
+        // View Navigation
         function showAdminPage() {
             document.getElementById('publicView').style.display = 'none';
             document.getElementById('adminView').style.display = 'block';
@@ -703,6 +1121,7 @@
                 <button class="admin-nav-btn" onclick="logoutAdmin()">Log Out</button>
             `;
             renderAdmin();
+            startSessionTimeout();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
@@ -710,15 +1129,15 @@
             document.getElementById('adminView').style.display = 'none';
             document.getElementById('publicView').style.display = 'block';
 
-            if (isAdmin) {
+            if (getAuthStatus()) {
                 document.getElementById('navLinks').innerHTML = `
-                    <a href="#news">Transmissions</a>
+                    <a href="#news">Transmissions &amp; Articles</a>
                     <a href="#apps">Repository</a>
                     <button class="admin-nav-btn" onclick="showAdminPage()">Admin Console</button>
                 `;
             } else {
                 document.getElementById('navLinks').innerHTML = `
-                    <a href="#news">Transmissions</a>
+                    <a href="#news">Transmissions &amp; Articles</a>
                     <a href="#apps">Repository</a>
                     <button class="admin-nav-btn" onclick="openLoginModal()">Admin Login</button>
                 `;
@@ -736,9 +1155,9 @@
             const u = document.getElementById('adminUser').value;
             const p = document.getElementById('adminPass').value;
 
-            // Updated credentials check: admin / admin
-            if (u === 'admin' && p === 'admin') {
-                isAdmin = true;
+            // Updated credentials check: mahaa2605 / Mahaa@2605
+            if (u === 'mahaa2605' && p === 'Mahaa@2605') {
+                setAuthStatus(true);
                 document.getElementById('authError').style.display = 'none';
                 document.getElementById('adminUser').value = '';
                 document.getElementById('adminPass').value = '';
@@ -750,64 +1169,149 @@
         }
 
         function logoutAdmin() {
-            isAdmin = false;
+            stopSessionTimeout();
+            setAuthStatus(false);
             navigateToPublic();
         }
 
-        // Action Handlers
+        function handleArticleDocRead(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const text = e.target.result;
+                document.getElementById('newsContent').value = text;
+                
+                const titleInput = document.getElementById('newsTitle');
+                if (!titleInput.value) {
+                    const cleanName = file.name.replace(/\.[^/.]+$/, "").replace(/[-_]/g, ' ');
+                    titleInput.value = cleanName;
+                }
+
+                const summaryInput = document.getElementById('newsSummary');
+                if (summaryInput && !summaryInput.value) {
+                    summaryInput.value = text.slice(0, 140).replace(/[\r\n]+/g, ' ') + '...';
+                }
+            };
+            reader.readAsText(file);
+        }
+
         function handleTransmissionUpload(event) {
             event.preventDefault();
-            const tag = document.getElementById('newsTag').value;
-            const title = document.getElementById('newsTitle').value;
-            const summary = document.getElementById('newsSummary').value;
-            const content = document.getElementById('newsContent').value;
 
-            const newTransmission = {
+            const tagEl = document.getElementById('newsTag');
+            const titleEl = document.getElementById('newsTitle');
+            const summaryEl = document.getElementById('newsSummary');
+            const contentEl = document.getElementById('newsContent');
+            const dateEl = document.getElementById('newsPublishDate');
+
+            const tag = sanitizeInput(tagEl.value);
+            const title = sanitizeInput(titleEl.value);
+            const rawContent = contentEl.value.trim();
+            const content = sanitizeInput(rawContent);
+
+            let summary = summaryEl && summaryEl.value.trim() !== '' 
+                ? sanitizeInput(summaryEl.value.trim()) 
+                : rawContent.slice(0, 150).replace(/[\r\n]+/g, ' ') + '...';
+
+            const customDateVal = dateEl && dateEl.value ? dateEl.value : null;
+            const timeString = formatDisplayDate(customDateVal);
+
+            const newEntry = {
                 id: Date.now(),
                 tag,
                 title,
                 summary,
                 content,
-                time: new Date().toISOString().slice(0, 10).toUpperCase() + " // SYSTEM INPUT"
+                time: timeString
             };
 
-            transmissions.unshift(newTransmission);
+            transmissions.unshift(newEntry);
+            saveStorage();
             document.getElementById('formTransmission').reset();
             renderAdmin();
-            alert("Broadcast published successfully.");
+            currentPage = 1;
+            renderPublic();
+            alert(`"${title}" published successfully to the website. To bake it into the source code, click "Export Synced HTML".`);
+        }
+
+        function handleApkSelection(event) {
+            const file = event.target.files[0];
+            if (file && !document.getElementById('appName').value) {
+                const suggested = file.name.replace(/\.apk$/i, '').replace(/[-_]/g, ' ');
+                document.getElementById('appName').value = suggested;
+            }
         }
 
         function handleApkUpload(event) {
             event.preventDefault();
-            const name = document.getElementById('appName').value;
-            const target = document.getElementById('appVersion').value;
-            const details = document.getElementById('appDetails').value;
-            const file = document.getElementById('apkFile').files[0];
+            const name = sanitizeInput(document.getElementById('appName').value);
+            const target = sanitizeInput(document.getElementById('appVersion').value);
+            const details = sanitizeInput(document.getElementById('appDetails').value);
+            const fileInput = document.getElementById('apkFile');
+            const file = fileInput.files[0];
 
             if (!file) return;
 
-            const size = (file.size / (1024 * 1024)).toFixed(1) + ' MB';
-            const newApp = {
-                id: Date.now(),
-                name,
-                size,
-                target,
-                package: 'custom.local.' + name.toLowerCase().replace(/[^a-z0-9]/g, ''),
-                filename: file.name,
-                details
-            };
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const base64Data = e.target.result;
+                const sizeMB = (file.size / (1024 * 1024)).toFixed(2) + ' MB';
 
-            applications.unshift(newApp);
-            document.getElementById('formApk').reset();
-            renderAdmin();
-            alert("Binary package successfully indexed.");
+                const newApp = {
+                    id: Date.now(),
+                    name,
+                    size: sizeMB,
+                    target,
+                    package: 'custom.local.' + name.toLowerCase().replace(/[^a-z0-9]/g, ''),
+                    filename: sanitizeInput(file.name),
+                    details,
+                    fileData: base64Data
+                };
+
+                applications.unshift(newApp);
+                saveStorage();
+                document.getElementById('formApk').reset();
+                renderAdmin();
+                renderPublic();
+                alert(`APK "${file.name}" indexed and uploaded. Click "Export Synced HTML" to make it permanent.`);
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function executeApkDownload(id) {
+            const app = applications.find(a => a.id === id);
+            if (!app) return;
+
+            if (app.fileData) {
+                const a = document.createElement('a');
+                a.href = app.fileData;
+                a.download = app.filename;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            } else {
+                const dummy = "THE_DAILY_TERMINAL_SAMPLE_PACKAGE_PAYLOAD";
+                const blob = new Blob([dummy], { type: 'application/vnd.android.package-archive' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = app.filename;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
         }
 
         function deleteTransmission(id) {
             const index = transmissions.findIndex(t => t.id === id);
             if (index !== -1) {
                 transmissions.splice(index, 1);
+                saveStorage();
                 renderAdmin();
+                renderPublic();
             }
         }
 
@@ -815,17 +1319,20 @@
             const index = applications.findIndex(a => a.id === id);
             if (index !== -1) {
                 applications.splice(index, 1);
+                saveStorage();
                 renderAdmin();
+                renderPublic();
             }
         }
 
-        // Reader Functionality
+        // Modals
         function readTransmission(id) {
             const item = transmissions.find(t => t.id === id);
             if (!item) return;
 
             const tag = document.getElementById('readTag');
             tag.textContent = item.tag;
+            tag.className = `tag ${item.tag === 'Articles' ? 'tag-article' : ''}`;
             tag.style.display = 'inline-block';
 
             document.getElementById('readTitle').textContent = item.title;
@@ -847,10 +1354,6 @@
             openModal('readModal');
         }
 
-        function triggerDownload(filename) {
-            alert(`Initiating download for: ${filename}\nBinary checksum verified.`);
-        }
-
         function openModal(id) {
             document.getElementById(id).style.display = 'flex';
         }
@@ -859,8 +1362,12 @@
             document.getElementById(id).style.display = 'none';
         }
 
-        // Initial Boot
-        renderPublic();
+        // Boot
+        if (getAuthStatus()) {
+            showAdminPage();
+        } else {
+            navigateToPublic();
+        }
     </script>
 </body>
 </html>
