@@ -599,9 +599,9 @@
             <div class="logo-area">
                 <a class="logo" onclick="navigateToPublic()">TheDailyTerminal</a>
                 <!-- Live Rolling Odometer Badge -->
-                <div class="site-views-pill" title="Global cross-device telemetry views">
+                <div class="site-views-pill" title="Live cross-device counter">
                     <span class="dot"></span>
-                    <span style="font-weight: 600;">VIEWS:</span>
+                    <span style="font-weight: 600;">LIVE VIEWS:</span>
                     <span class="odometer-board" id="odometerBoard"></span>
                 </div>
             </div>
@@ -668,10 +668,10 @@
             <!-- View Counter Control Card -->
             <div class="admin-panel-card" style="margin-bottom: 2rem; border-color: var(--accent-cyan);">
                 <h3 style="margin-bottom: 0.5rem; color: var(--accent-cyan); display: flex; align-items: center; gap: 0.5rem;">
-                    Global Cross-Device View Counter
+                    Global Live View Counter
                 </h3>
                 <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">
-                    Set the global counter value. This updates immediately in cloud storage for all devices and visitors.
+                    Set the global counter value. This updates live across all connected devices and visitors immediately.
                 </p>
                 <form id="viewCounterForm" onsubmit="handleManualViewUpdate(event)" style="display: flex; gap: 1rem; align-items: flex-end; max-width: 480px;">
                     <div class="form-group" style="margin-bottom: 0; flex: 1;">
@@ -827,14 +827,14 @@
                     "tag": "Articles",
                     "title": "100DaysOfLinuxCommands – Day 7: touch",
                     "summary": "🐧 #100DaysOfLinuxCommands – Day 7: touch A tiny command with a huge role in Linux 📄✨ 🔹 Command: touch (Create Empty Files / Update Timestamps) T...",
-                    "content": "🐧 #100DaysOfLinuxCommands – Day 7: touch\n\nA tiny command with a huge role in Linux 📄✨\n\n🔹 Command: touch (Create Empty Files / Update Timestamps)\n\nThe touch command is mainly used to:\n\n✅ Create new empty files\n✅ Update file timestamps without modifying content\n\n📌 Basic Usage:\n\n👉touch file.txt\n\n👉 Creates an empty file named file.txt\n\n⚙️ Useful Options:\n\n\ntouch file1.txt file2.txt    # Create multiple files\ntouch -a file.txt            # Update access time only\ntouch -m file.txt            # Update modified time only\ntouch -t 202605171200 file.txt   # Set custom timestamp\n\n💡 Real-World Use Cases:\n\n✅ Quickly create config or log files\n✅ Generate placeholder files for testing\n✅ Update timestamps in scripts\n✅ Initialize project structure faster\n\n🧪 Practical Example:\n\ntouch app.log\n👉 Creates a log file instantly\n\ntouch index.html style.css script.js\n👉 Creates multiple project files in one command\n\n⚡ Tips &amp; Best Practices:\n\n✔️ Use touch to prepare files before scripting\n✔ Combine with mkdir for quick project setup\n✔️ Great for testing file permissions and ownership\n✔️ Avoid overwriting existing files accidentally\n\n🤖 Mini Automation Idea:\nBash\n#!/bin/bash\n# Create daily log file automatically\n\nlogfile=&quot;log_$(date +%F).txt&quot;\ntouch &quot;$logfile&quot;\n\necho &quot;📝 Created: $logfile&quot;\n\n📌 touch may look simple… but it’s one of the fastest ways to create and manage files in Linux.\n\n💬 What’s your most common use of touch — creating files or updating timestamps? 👇",
+                    "content": "🐧 #100DaysOfLinuxCommands – Day 7: touch\n\nA tiny command with a huge role in Linux 📄✨\n\n🔹 Command: touch (Create Empty Files / Update Timestamps)\n\nThe touch command is mainly used to:\n\n✅ Create new empty files\n✅ Update file timestamps without modifying content\n\n📌 Basic Usage:\n\n👉touch file.txt\n\n👉 Creates an empty file named file.txt\n\n⚙️ Useful Options:\n\n\ntouch file1.txt file2.txt    # Create multiple files\ntouch -a file.txt            # Update access time only\ntouch -m file.txt            # Update modified time only\ntouch -t 202605171200 file.txt   # Set custom timestamp\n\n💡 Real-World Use Cases:\n\n✅ Quickly create config or log files\n✅ Generate placeholder files for testing\n✅ Update timestamps in scripts\n✅ Initialize project structure faster\n\n🧪 Practical Example:\n\ntouch app.log\n👉 Creates a log file instantly\n\ntouch index.html style.css script.js\n👉 Creates multiple project files in one command\n\n⚡ Tips &amp; Best Practices:\n\n✔️ Use touch to prepare files before scripting\n✔ Combine with mkdir for quick project setup\n✔️️ Great for testing file permissions and ownership\n✔️ Avoid overwriting existing files accidentally\n\n🤖 Mini Automation Idea:\nBash\n#!/bin/bash\n# Create daily log file automatically\n\nlogfile=&quot;log_$(date +%F).txt&quot;\ntouch &quot;$logfile&quot;\n\necho &quot;📝 Created: $logfile&quot;\n\n📌 touch may look simple… but it’s one of the fastest ways to create and manage files in Linux.\n\n💬 What’s your most common use of touch — creating files or updating timestamps? 👇",
                     "time": "23-SEP-2026 // 19:31 LOCAL"
           },
           {
                     "id": 1790611286971,
                     "tag": "Articles",
                     "title": "100DaysOfLinuxCommands – Day 6: mv",
-                    "summary": "🐧 #100DaysOfLinuxCommands – Day 6: mv Sometimes organizing files is just moving things to the right place 📂➡️📂 🔹 Command: mv (Move / Rename File...",
+                    "summary": "🐧 #100DaysOfLinuxCommands – Day 6: mv Sometimes organizing files is just moving things to the right place 📂➡️️📂 🔹 Command: mv (Move / Rename File...",
                     "content": "🐧 #100DaysOfLinuxCommands – Day 6: mv\n\nSometimes organizing files is just moving things to the right place 📂➡📂\n\n🔹 Command: mv (Move / Rename Files &amp; Directories)\nThe mv command is used to move files/directories from one location to another or rename them.\n\n📌 Basic Usage:\n\nmv old_file.txt new_file.txt\n\n👉 Renames a file\n\nmv file.txt /home/user/Documents/\n\n👉 Moves file to another directory\n⚙ Useful Options:\n\n\nmv -i file.txt backup/    # Ask before overwrite\nmv -v file.txt backup/    # Show move details\nmv -u source dest         # Move only if newer\n\n\n💡 Real-World Use Cases:\n\n✅ Rename log files with timestamps\n✅ Organize downloads automatically\n✅ Move backups to archive folders\n✅ Rearrange project structure safely\n🧪 Practical Example:\n\n\nmv report.txt report_2026.txt\n\n👉 Renames report file with year\n\nmv *.log logs/\n\n👉 Moves all log files into logs directory\n\n⚡ Tips &amp; Best Practices:\n\n✔️ Use -i to avoid accidental overwrites\n✔️ Combine with wildcards (*) carefully\n✔️ Verify destination before moving critical files\n✔ Use meaningful file names while renaming\n\n🤖 Mini Automation Idea:\n\nBash\n#!/bin/bash\n# Move all .jpg files into Images folder\n\nmkdir -p Images\nmv *.jpg Images/\n\necho &quot;📸 Images organized successfully!&quot;\n\n📌 mv is not just about moving files — it’s about keeping systems organized and manageable.\n💬 What do you use mv for most often — moving or renaming? 👇",
                     "time": "09-SEP-2026 // 19:31 LOCAL"
           },
@@ -851,7 +851,7 @@
                     "tag": "Articles",
                     "title": "100DaysOfLinuxCommands – Day 4: rmdir",
                     "summary": "🐧 #100DaysOfLinuxCommands – Day 4: rmdir Cleaning up is just as important as creating 📁❌ 🔹 Command: rmdir (Remove Directory) The rmdir command is...",
-                    "content": "🐧 #100DaysOfLinuxCommands – Day 4: rmdir\n\nCleaning up is just as important as creating 📁❌\n\n🔹 Command: rmdir (Remove Directory)\nThe rmdir command is used to delete empty directories in Linux.\n📌 Basic Usage:\n\n\n👉rmdir folder_name\n\n👉 Removes the directory only if it’s empty\n\n⚙ Useful Options:\n\n👉rmdir -p parent/child/grandchild   # Remove nested empty directories\n👉rmdir -v folder_name               # Show output message\n\n💡 Real-World Use Cases:\n\n✅ Clean up unused empty folders\n✅ Remove temporary directories after tasks\n✅ Maintain clean project structure\n✅ Used in scripts for housekeeping\n\n🧪 Practical Example:\n\n👉mkdir -p test/demo\n👉rmdir -p test/demo\n👉 Removes both demo and test if they’re empty\n\n⚠️ Important Note:\n\nrmdir folder_name\n\n❌ Fails if the directory is not empty\n✔️ Use rm -r if you want to remove directories with files (be careful!)\n\n⚡ Tips &amp; Best Practices:\n\n✔️ Use rmdir when you want safe deletion\n✔️ Prefer rmdir over rm -r to avoid accidental data loss\n✔️ Combine with scripts to clean empty directories\n✔️ Always double-check before deleting\n\n🤖 Mini Automation Idea:\nBash\n#!/bin/bash\n# Remove all empty directories in current path\n\nfind . -type d -empty -exec rmdir {} \\;\necho &quot;🧹 Cleaned empty directories&quot;\n\n📌 rmdir is simple… but it helps keep your system clean and organized.\n\n💬 Do you use rmdir or directly go with rm -r?",
+                    "content": "🐧 #100DaysOfLinuxCommands – Day 4: rmdir\n\nCleaning up is just as important as creating 📁❌\n\n🔹 Command: rmdir (Remove Directory)\nThe rmdir command is used to delete empty directories in Linux.\n📌 Basic Usage:\n\n\n👉rmdir folder_name\n\n👉 Removes the directory only if it’s empty\n\n⚙ Useful Options:\n\n👉rmdir -p parent/child/grandchild   # Remove nested empty directories\n👉rmdir -v folder_name               # Show output message\n\n💡 Real-World Use Cases:\n\n✅ Clean up unused empty folders\n✅ Remove temporary directories after tasks\n✅ Maintain clean project structure\n✅ Used in scripts for housekeeping\n\n🧪 Practical Example:\n\n👉mkdir -p test/demo\n👉rmdir -p test/demo\n👉 Removes both demo and test if they’re empty\n\n⚠️ Important Note:\n\nrmdir folder_name\n\n❌ Fails if the directory is not empty\n✔️ Use rm -r if you want to remove directories with files (be careful!)\n\n⚡ Tips &amp; Best Practices:\n\n✔️️ Use rmdir when you want safe deletion\n✔️ Prefer rmdir over rm -r to avoid accidental data loss\n✔️️ Combine with scripts to clean empty directories\n✔️ Always double-check before deleting\n\n🤖 Mini Automation Idea:\nBash\n#!/bin/bash\n# Remove all empty directories in current path\n\nfind . -type d -empty -exec rmdir {} \\;\necho &quot;🧹 Cleaned empty directories&quot;\n\n📌 rmdir is simple… but it helps keep your system clean and organized.\n\n💬 Do you use rmdir or directly go with rm -r?",
                     "time": "18-AUG-2026 // 21:29 LOCAL"
           },
           {
@@ -875,7 +875,7 @@
                     "tag": "Articles",
                     "title": "100DaysOfLinuxCommands – Day 1: ls",
                     "summary": "🐧 #100DaysOfLinuxCommands – Day 1: ls Starting my journey with one of the most used Linux commands 👇 🔹 Command: ls (List Directory Contents) The l...",
-                    "content": "🐧 #100DaysOfLinuxCommands – Day 1: ls\nStarting my journey with one of the most used Linux commands 👇\n\n🔹 Command: ls (List Directory Contents)\nThe ls command is used to view files and directories in your current location.\n\n📌 Basic Usage:\n\n👉ls\n\n👉 Lists files in the current directory\n\n⚙️ Useful Options:\n\n\nls -l     # Detailed list (permissions, owner, size)\nls -a     # Show hidden files\nls -lh    # Human-readable file sizes\nls -lt    # Sort by latest modified\nls -R     # Recursive listing\n\n💡 Real-World Use Cases:\n\n✅ Quickly check files in a project folder\n✅ Identify hidden config files like .env, .git\n✅ Debug issues by inspecting logs or directories\n✅ Verify file permissions before execution\n\n🧪 Practical Example:\n\n\n👉ls -lh /var/log\n\n👉 View system logs with readable file size\n\n⚡ Tips &amp; Best Practices:\n\n✔️ Use ls -lh instead of plain ls for better readability\n✔️ Combine flags: ls -lah (all + long + human readable)\n✔️ Use ls -lt to quickly find recent changes\n✔️ Avoid ls -R on large directories (can flood output)\n\n🤖 Mini Automation Idea:\n\nBash\n#!/bin/bash\n# List top 5 largest files in current directory\n\nls -lhS | head -n 6\n\n📌 Simple command… but used hundreds of times daily by developers and admins.\n💬 Did you know all these ls tricks?",
+                    "content": "🐧 #100DaysOfLinuxCommands – Day 1: ls\nStarting my journey with one of the most used Linux commands 👇\n\n🔹 Command: ls (List Directory Contents)\nThe ls command is used to view files and directories in your current location.\n\n📌 Basic Usage:\n\n👉ls\n\n👉 Lists files in the current directory\n\n⚙️ Useful Options:\n\n\nls -l     # Detailed list (permissions, owner, size)\nls -a     # Show hidden files\nls -lh    # Human-readable file sizes\nls -lt    # Sort by latest modified\nls -R     # Recursive listing\n\n💡 Real-World Use Cases:\n\n✅ Quickly check files in a project folder\n✅ Identify hidden config files like .env, .git\n✅ Debug issues by inspecting logs or directories\n✅ Verify file permissions before execution\n\n🧪 Practical Example:\n\n\n👉ls -lh /var/log\n\n👉 View system logs with readable file size\n\n⚡ Tips &amp; Best Practices:\n\n✔️️ Use ls -lh instead of plain ls for better readability\n✔️ Combine flags: ls -lah (all + long + human readable)\n✔️ Use ls -lt to quickly find recent changes\n✔️ Avoid ls -R on large directories (can flood output)\n\n🤖 Mini Automation Idea:\n\nBash\n#!/bin/bash\n# List top 5 largest files in current directory\n\nls -lhS | head -n 6\n\n📌 Simple command… but used hundreds of times daily by developers and admins.\n💬 Did you know all these ls tricks?",
                     "time": "28-JUL-2026 // 21:26 LOCAL"
           },
           {
@@ -946,14 +946,13 @@
             applications = initialApplications;
         }
 
-        // ================= GLOBAL CROSS-DEVICE COUNTER ENGINE =================
-        // Unique global namespace for the application
-        const CLOUD_NAMESPACE = 'dailyterminal_telemetry_hub';
-        const CLOUD_KEY = 'global_views';
+        // ================= GLOBAL CLOUD SYNCED LIVE COUNTER =================
+        // Globally unique key identifier for cross-device telemetry
+        const GLOBAL_KEY = 'dailyterminal_telemetry_live_2026';
 
         let currentViews = siteViews;
 
-        // Load cached view count immediately for instant UI render
+        // Load cached view count for instant visual display
         try {
             const cached = localStorage.getItem('dt_site_views');
             if (cached !== null && !isNaN(parseInt(cached, 10))) {
@@ -961,76 +960,98 @@
             }
         } catch (e) {}
 
-        // Global Sync & Increment Logic
-        async function syncGlobalViewCounter() {
-            // Anti-double-fire guard across runtime & prerendering
-            if (window.__dt_counted || document.prerendering) return;
-            window.__dt_counted = true;
-
-            const now = Date.now();
-            const lastTs = parseInt(localStorage.getItem('dt_last_visit_ts') || '0', 10);
-
-            // 1.5s debounce ensures dual-evaluations, rapid re-renders, or extensions don't fire twice
-            const shouldIncrement = (now - lastTs > 1500);
-
+        // Global Cross-Device Fetch & Increment Logic
+        async function syncGlobalCounter(isOpeningHit = false) {
+            // Primary Cloud Endpoint: countapi.mileshilliard.com
+            // Secondary Fallback: abacus.jasoncameron.dev
             try {
-                if (shouldIncrement) {
-                    localStorage.setItem('dt_last_visit_ts', now.toString());
-                    // Cloud API increment: hits global server and returns synchronized +1 value
-                    const res = await fetch(`https://api.counterapi.dev/v1/${CLOUD_NAMESPACE}/${CLOUD_KEY}/up`);
+                if (isOpeningHit) {
+                    // Strictly +1 on opening the link
+                    const res = await fetch(`https://countapi.mileshilliard.com/api/v1/hit/${GLOBAL_KEY}`);
                     if (res.ok) {
                         const data = await res.json();
-                        if (data && typeof data.count === 'number') {
-                            currentViews = data.count;
-                            siteViews = currentViews;
-                            localStorage.setItem('dt_site_views', currentViews);
-                            renderOdometer(currentViews);
+                        if (data && data.value) {
+                            applyNewViewCount(parseInt(data.value, 10));
                             return;
                         }
                     }
                 } else {
-                    // Only fetch current global count without incrementing
-                    const res = await fetch(`https://api.counterapi.dev/v1/${CLOUD_NAMESPACE}/${CLOUD_KEY}`);
+                    // Periodic live sync (read-only)
+                    const res = await fetch(`https://countapi.mileshilliard.com/api/v1/get/${GLOBAL_KEY}`);
                     if (res.ok) {
                         const data = await res.json();
-                        if (data && typeof data.count === 'number') {
-                            currentViews = data.count;
-                            siteViews = currentViews;
-                            localStorage.setItem('dt_site_views', currentViews);
-                            renderOdometer(currentViews);
+                        if (data && data.value) {
+                            applyNewViewCount(parseInt(data.value, 10));
                             return;
                         }
                     }
                 }
             } catch (err) {
-                // Secondary fallback endpoint if counterapi.dev is blocked or unreachable
+                // Secondary Fallback Cloud Provider
                 try {
-                    const fallbackRes = await fetch(`https://api.countapi.xyz/${shouldIncrement ? 'hit' : 'get'}/${CLOUD_NAMESPACE}/${CLOUD_KEY}`);
-                    if (fallbackRes.ok) {
-                        const fallbackData = await fallbackRes.json();
-                        if (fallbackData && typeof fallbackData.value === 'number') {
-                            currentViews = fallbackData.value;
-                            siteViews = currentViews;
-                            localStorage.setItem('dt_site_views', currentViews);
-                            renderOdometer(currentViews);
+                    const fallbackEndpoint = isOpeningHit 
+                        ? `https://abacus.jasoncameron.dev/hit/dailyterminal/${GLOBAL_KEY}`
+                        : `https://abacus.jasoncameron.dev/get/dailyterminal/${GLOBAL_KEY}`;
+                    const fbRes = await fetch(fallbackEndpoint);
+                    if (fbRes.ok) {
+                        const fbData = await fbRes.json();
+                        if (fbData && typeof fbData.value === 'number') {
+                            applyNewViewCount(fbData.value);
                             return;
                         }
                     }
-                } catch (fallbackErr) {
-                    console.warn('Cloud sync service unreachable, using offline persistence.', fallbackErr);
+                } catch (fbErr) {
+                    console.warn('Live cloud sync fallback unreachable. Keeping local cache.', fbErr);
                 }
             }
 
-            // Offline / fallback increment
-            if (shouldIncrement) {
-                currentViews += 1;
-                siteViews = currentViews;
+            // Offline local fallback if both cloud APIs are unreachable
+            if (isOpeningHit) {
+                applyNewViewCount(currentViews + 1);
+            }
+        }
+
+        function applyNewViewCount(newVal) {
+            if (!isNaN(newVal) && newVal !== currentViews) {
+                currentViews = newVal;
+                siteViews = newVal;
                 try {
                     localStorage.setItem('dt_site_views', currentViews);
                 } catch (e) {}
+                renderOdometer(currentViews);
             }
-            renderOdometer(currentViews);
         }
+
+        // Dedicated Single-Shot Page Open Handler (Strictly +1 once)
+        function triggerPageOpenIncrement() {
+            if (window.__dt_hit_done || document.prerendering) return;
+            window.__dt_hit_done = true;
+
+            const now = Date.now();
+            const lastHit = parseInt(sessionStorage.getItem('dt_tab_hit_ts') || '0', 10);
+
+            // Debounce within this session to eliminate dual-invocations on reload/HMR
+            if (now - lastHit > 2000) {
+                sessionStorage.setItem('dt_tab_hit_ts', now.toString());
+                syncGlobalCounter(true);
+            } else {
+                syncGlobalCounter(false);
+            }
+        }
+
+        // Handle speculative prerendering safely
+        if (document.prerendering) {
+            document.addEventListener('prerenderingchange', triggerPageOpenIncrement, { once: true });
+        } else {
+            triggerPageOpenIncrement();
+        }
+
+        // Live cross-device listener: polls cloud counter every 8 seconds
+        setInterval(() => {
+            if (!document.hidden) {
+                syncGlobalCounter(false);
+            }
+        }, 8000);
 
         // Animated Odometer Engine
         function renderOdometer(targetNumber) {
@@ -1082,27 +1103,22 @@
             }
         }
 
-        // Admin Manual Cloud Calibration
+        // Admin Manual Cloud Calibration: updates cloud storage for all devices
         async function handleManualViewUpdate(event) {
             event.preventDefault();
             const input = document.getElementById('manualViewInput');
             const val = parseInt(input.value, 10);
             if (!isNaN(val) && val >= 0) {
-                currentViews = val;
-                siteViews = val;
+                applyNewViewCount(val);
 
                 try {
-                    localStorage.setItem('dt_site_views', currentViews);
-                    localStorage.setItem('dt_last_visit_ts', Date.now().toString());
-
-                    // Push directly to cloud store
-                    await fetch(`https://api.counterapi.dev/v1/${CLOUD_NAMESPACE}/${CLOUD_KEY}/set?count=${val}`);
+                    // Update primary cloud store
+                    await fetch(`https://countapi.mileshilliard.com/api/v1/set/${GLOBAL_KEY}?value=${val}`);
                 } catch (e) {
                     console.warn('Cloud set request failed, updated locally.', e);
                 }
 
-                renderOdometer(currentViews);
-                alert(`Global view count updated to ${currentViews.toLocaleString()} across all devices.`);
+                alert(`Global view count updated to ${val.toLocaleString()} across all devices.`);
             }
         }
 
@@ -1634,10 +1650,8 @@
             document.getElementById(id).style.display = 'none';
         }
 
-        // Initial Boot Sequence
+        // Boot
         renderOdometer(currentViews);
-        syncGlobalViewCounter();
-
         if (getAuthStatus()) {
             showAdminPage();
         } else {
