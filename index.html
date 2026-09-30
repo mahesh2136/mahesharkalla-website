@@ -49,6 +49,12 @@
             align-items: center;
         }
 
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
         .logo {
             font-family: var(--font-mono);
             font-size: 1.4rem;
@@ -64,6 +70,70 @@
         .logo::before {
             content: ">_";
             color: var(--accent-green);
+        }
+
+        /* Odometer Rolling Badge Styles */
+        .site-views-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            background-color: var(--bg-primary);
+            border: 1px solid var(--accent-cyan);
+            color: var(--accent-cyan);
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            box-shadow: 0 0 12px rgba(56, 189, 248, 0.12);
+        }
+
+        .site-views-pill span.dot {
+            width: 7px;
+            height: 7px;
+            background-color: var(--accent-green);
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 6px var(--accent-green);
+        }
+
+        .odometer-board {
+            display: inline-flex;
+            align-items: center;
+            font-weight: bold;
+            letter-spacing: 0.02em;
+        }
+
+        .odometer-digit {
+            position: relative;
+            display: inline-block;
+            width: 0.65em;
+            height: 1.25em;
+            line-height: 1.25em;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .odometer-ribbon {
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            transition: transform 1.2s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+            will-change: transform;
+        }
+
+        .odometer-num {
+            height: 1.25em;
+            line-height: 1.25em;
+        }
+
+        .odometer-symbol {
+            display: inline-block;
+            height: 1.25em;
+            line-height: 1.25em;
+            padding: 0 0.05em;
         }
 
         nav a, nav button {
@@ -391,6 +461,11 @@
                 flex-direction: column;
                 align-items: flex-start;
             }
+            .logo-area {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
         }
 
         .admin-panel-card {
@@ -521,7 +596,15 @@
 
     <header>
         <div class="nav-container">
-            <a class="logo" onclick="navigateToPublic()">TheDailyTerminal</a>
+            <div class="logo-area">
+                <a class="logo" onclick="navigateToPublic()">TheDailyTerminal</a>
+                <!-- Live Rolling Odometer Badge -->
+                <div class="site-views-pill" title="Total page telemetry views">
+                    <span class="dot"></span>
+                    <span style="font-weight: 600;">VIEWS:</span>
+                    <span class="odometer-board" id="odometerBoard"></span>
+                </div>
+            </div>
             <nav id="navLinks">
                 <a href="#news">Transmissions &amp; Articles</a>
                 <a href="#apps">Repository</a>
@@ -543,6 +626,11 @@
                     <h2 class="section-title">Latest Transmissions &amp; Articles</h2>
                     <div class="controls-wrapper">
                         <input type="text" id="articleSearch" class="search-input" placeholder="Search articles..." oninput="handleSearchChange()">
+                        <select class="filter-select" id="categoryFilter" onchange="handleFilterChange()">
+                            <option value="ALL">All Categories</option>
+                            <option value="Articles">Articles</option>
+                            <option value="Android OS">Android OS</option>
+                        </select>
                     </div>
                 </div>
                 <div class="news-grid" id="newsGrid"></div>
@@ -572,9 +660,26 @@
             <div class="sync-banner">
                 <div>
                     <strong style="color: var(--accent-green); display: block; margin-bottom: 0.25rem;">Sync Published Data to Source Code</strong>
-                    <span style="font-size: 0.85rem; color: var(--text-secondary);">Downloads the entire HTML file with your current publications and uploaded APK packages written directly into the code arrays.</span>
+                    <span style="font-size: 0.85rem; color: var(--text-secondary);">Downloads the entire HTML file with your current publications, view counter, and uploaded APK packages written directly into the code arrays.</span>
                 </div>
                 <button class="btn btn-download" onclick="downloadSyncedSource()">Export Synced HTML</button>
+            </div>
+
+            <!-- View Counter Control Card -->
+            <div class="admin-panel-card" style="margin-bottom: 2rem; border-color: var(--accent-cyan);">
+                <h3 style="margin-bottom: 0.5rem; color: var(--accent-cyan); display: flex; align-items: center; gap: 0.5rem;">
+                    Site Telemetry &amp; View Counter
+                </h3>
+                <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">
+                    Modify the live visitor counter shown in the navigation bar. Useful for calibration or resetting analytics.
+                </p>
+                <form id="viewCounterForm" onsubmit="handleManualViewUpdate(event)" style="display: flex; gap: 1rem; align-items: flex-end; max-width: 480px;">
+                    <div class="form-group" style="margin-bottom: 0; flex: 1;">
+                        <label for="manualViewInput">Counter Metric Value</label>
+                        <input type="number" id="manualViewInput" min="0" required>
+                    </div>
+                    <button type="submit" class="btn" style="white-space: nowrap;">Save View Count</button>
+                </form>
             </div>
 
             <!-- Upload Consoles -->
@@ -709,11 +814,13 @@
     </div>
 
     <footer>
-        <p>&copy; 2026 TheDailyTerminal. All rights reserved. System metrics normal.</p>
+        <p>Copyright &copy; TheDailyTerminal 2026. All rights reserved.</p>
     </footer>
 
     <script>
         /* == SYNC_DATA_START == */
+        let siteViews = 1042;
+
         const initialTransmissions = [
           {
                     "id": 1790611324107,
@@ -799,16 +906,14 @@
                     "id": 1789833744860,
                     "tag": "Articles",
                     "title": "Bash scripting is a silent hero",
-                    "summary": "In the world of IT and DevOps, Shell Scripting is a silent hero. Whether it's automating server tasks, scheduling backups, monitoring logs, or managin...",
-                    "content": "In the world of IT and DevOps, Shell Scripting is a silent hero. Whether it&#039;s automating server tasks, scheduling backups, monitoring logs, or managing deployments—shell scripts can save hours of manual effort.\n\nRecently, I’ve been working on writing shell scripts to:\n✅ Automate system cleanups\n✅ Trigger backups and notifications\n✅ Monitor server health and services\n✅ Integrate with Jenkins for CI/CD tasks\n\nWhat I love most?\n➡️ It&#039;s lightweight\n➡️ Easy to integrate with cronjobs\n➡️ Speaks directly to the system\n\nIf you&#039;re in IT support, DevOps, or even a developer—investing time in learning shell scripting is a game changer. A few lines of code can create a huge impact.\n\n💡 Tip: Start with small scripts. The more you automate, the more efficient you become.\n\nHave you used shell scripting in your projects? Would love to hear how it helped you! 💬",
+                    "summary": "In the world of IT and DevOps, Shell Scripting is a silent hero. Whether it's automating server tasks, scheduling backups, monitoring logs, or managing deployments—shell scripts can save hours of manual effort.\n\nRecently, I’ve been working on writing shell scripts to:\n✅ Automate system cleanups\n✅ Trigger backups and notifications\n✅ Monitor server health and services\n✅ Integrate with Jenkins for CI/CD tasks\n\nWhat I love most?\n➡️ It's lightweight\n➡️ Easy to integrate with cronjobs\n➡️ Speaks directly to the system\n\nIf you're in IT support, DevOps, or even a developer—investing time in learning shell scripting is a game changer. A few lines of code can create a huge impact.\n\n💡 Tip: Start with small scripts. The more you automate, the more efficient you become.\n\nHave you used shell scripting in your projects? Would love to hear how it helped you! 💬",
                     "time": "30-JUN-2026 // 21:32 LOCAL"
           },
           {
                     "id": 1789806422986,
                     "tag": "Articles",
                     "title": "Coding and programming ",
-                    "summary": "In tech circles, \"coding\" and \"programming\" are often used interchangeably — but they’re not the same. This visual does a great job of breaking it dow...",
-                    "content": "In tech circles, &quot;coding&quot; and &quot;programming&quot; are often used interchangeably — but they’re not the same. This visual does a great job of breaking it down 👇\n\n💻 Coding\n\nThink of coding as the act of translating logic into a machine-readable language. It’s about writing syntax, using languages like Python, Java, or C++, to solve specific problems or build functionalities.\n\n✅ Writing lines of code\n✅ Following language rules &amp; syntax\n✅ Providing machine-readable inputs\n✅ A vital subset of programming\n\n\n---\n\n🧠 Programming\n\nProgramming goes beyond just writing code — it’s about building complete software solutions. It involves:\n\n🔹 Understanding requirements\n🔹 Planning the software architecture\n🔹 Translating logic into code (coding!)\n🔹 Testing and debugging\n🔹 Writing documentation\n🔹 Maintaining the product over time\n\nCoding is a key part of programming — but programming is the bigger picture. It&#039;s like the difference between writing words and crafting an entire novel. 📖\n\n\n---\n\n💡 Whether you&#039;re a beginner writing your first script or an architect designing scalable systems — understanding this distinction helps you grow from a coder to a true software engineer.",
+                    "summary": "In tech circles, \"coding\" and \"programming\" are often used interchangeably — but they’re not the same. This visual does a great job of breaking it down 👇\n\n💻 Coding\n\nThink of coding as the act of translating logic into a machine-readable language. It’s about writing syntax, using languages like Python, Java, or C++, to solve specific problems or build functionalities.\n\n✅ Writing lines of code\n✅ Following language rules &amp; syntax\n✅ Providing machine-readable inputs\n✅ A vital subset of programming\n\n\n---\n\n🧠 Programming\n\nProgramming goes beyond just writing code — it’s about building complete software solutions. It involves:\n\n🔹 Understanding requirements\n🔹 Planning the software architecture\n🔹 Translating logic into code (coding!)\n🔹 Testing and debugging\n🔹 Writing documentation\n🔹 Maintaining the product over time\n\nCoding is a key part of programming — but programming is the bigger picture. It's like the difference between writing words and crafting an entire novel. 📖\n\n\n---\n\n💡 Whether you're a beginner writing your first script or an architect designing scalable systems — understanding this distinction helps you grow from a coder to a true software engineer.",
                     "time": "15-JUN-2026 // 18:56 LOCAL"
           },
           {
@@ -824,6 +929,7 @@
         const initialApplications = [];
         /* == SYNC_DATA_END == */
 
+        // Initialize and Load Stored Datasets
         let transmissions = [];
         try {
             const storedNews = localStorage.getItem('dt_transmissions');
@@ -838,6 +944,109 @@
             applications = storedApps ? JSON.parse(storedApps) : initialApplications;
         } catch (e) {
             applications = initialApplications;
+        }
+
+        // View Counter State & Single-Increment Logic
+        let currentViews = siteViews;
+        try {
+            const storedViews = localStorage.getItem('dt_site_views');
+            if (storedViews !== null && !isNaN(parseInt(storedViews, 10))) {
+                currentViews = parseInt(storedViews, 10);
+            }
+        } catch (e) {
+            currentViews = siteViews;
+        }
+
+        // Increment count strictly once per load, with anti-double-fire debounce
+        function registerPageView() {
+            if (window.__dt_view_counted) return;
+            window.__dt_view_counted = true;
+
+            const now = Date.now();
+            const lastIncrement = parseInt(localStorage.getItem('dt_last_increment_ts') || '0', 10);
+
+            // 1.5-second cooldown blocks immediate double execution from dev-servers/extensions/prerenders
+            if (now - lastIncrement > 1500) {
+                currentViews += 1;
+                siteViews = currentViews;
+                try {
+                    localStorage.setItem('dt_site_views', currentViews);
+                    localStorage.setItem('dt_last_increment_ts', now.toString());
+                } catch (e) {}
+            }
+        }
+
+        // Handle speculative prerendering safely
+        if (document.prerendering) {
+            document.addEventListener('prerenderingchange', registerPageView, { once: true });
+        } else {
+            registerPageView();
+        }
+
+        // Animated Odometer Engine
+        function renderOdometer(targetNumber) {
+            const container = document.getElementById('odometerBoard');
+            if (!container) return;
+
+            const formattedStr = targetNumber.toLocaleString();
+            container.innerHTML = '';
+
+            for (let i = 0; i < formattedStr.length; i++) {
+                const char = formattedStr[i];
+
+                if (char >= '0' && char <= '9') {
+                    const digitVal = parseInt(char, 10);
+                    const digitBox = document.createElement('div');
+                    digitBox.className = 'odometer-digit';
+
+                    const ribbon = document.createElement('div');
+                    ribbon.className = 'odometer-ribbon';
+
+                    // Digits 0 through 9
+                    for (let n = 0; n <= 9; n++) {
+                        const numItem = document.createElement('div');
+                        numItem.className = 'odometer-num';
+                        numItem.textContent = n;
+                        ribbon.appendChild(numItem);
+                    }
+
+                    ribbon.style.transform = 'translateY(0%)';
+                    digitBox.appendChild(ribbon);
+                    container.appendChild(digitBox);
+
+                    // Smooth staggered wheel roll
+                    setTimeout(() => {
+                        const translateY = -(digitVal * 10);
+                        ribbon.style.transform = `translateY(${translateY}%)`;
+                    }, 60 + i * 40);
+                } else {
+                    const symbolBox = document.createElement('span');
+                    symbolBox.className = 'odometer-symbol';
+                    symbolBox.textContent = char;
+                    container.appendChild(symbolBox);
+                }
+            }
+
+            const adminInput = document.getElementById('manualViewInput');
+            if (adminInput) {
+                adminInput.value = currentViews;
+            }
+        }
+
+        function handleManualViewUpdate(event) {
+            event.preventDefault();
+            const input = document.getElementById('manualViewInput');
+            const val = parseInt(input.value, 10);
+            if (!isNaN(val) && val >= 0) {
+                currentViews = val;
+                siteViews = val;
+                try {
+                    localStorage.setItem('dt_site_views', currentViews);
+                    localStorage.setItem('dt_last_increment_ts', Date.now().toString());
+                } catch (e) {}
+                renderOdometer(currentViews);
+                alert(`Site view count manually updated to ${currentViews.toLocaleString()}.`);
+            }
         }
 
         // Pagination and Filter State
@@ -855,6 +1064,12 @@
                 localStorage.setItem('dt_applications', JSON.stringify(applications));
             } catch (err) {
                 console.warn('Storage quota exceeded when writing applications.', err);
+            }
+
+            try {
+                localStorage.setItem('dt_site_views', currentViews);
+            } catch (err) {
+                console.warn('Storage quota exceeded when writing view counter.', err);
             }
         }
 
@@ -874,7 +1089,7 @@
             const cleanTransmissions = JSON.stringify(transmissions, null, 12);
             const cleanApplications = JSON.stringify(applications, null, 12);
 
-            const replacement = `${markerStart}\n        const initialTransmissions = ${cleanTransmissions};\n\n        const initialApplications = ${cleanApplications};\n        `;
+            const replacement = `${markerStart}\n        let siteViews = ${currentViews};\n\n        const initialTransmissions = ${cleanTransmissions};\n\n        const initialApplications = ${cleanApplications};\n        `;
 
             const finalHtml = currentDoc.substring(0, startIndex) + replacement + currentDoc.substring(endIndex);
 
@@ -886,7 +1101,7 @@
             link.click();
             document.body.removeChild(link);
             URL.revokeObjectURL(link.href);
-            alert("Export complete. Replace your existing HTML file with this downloaded file to make all publications permanent in the code.");
+            alert("Export complete. Replace your existing HTML file with this downloaded file to make all publications and view metrics permanent in the code.");
         }
 
         function sanitizeInput(str) {
@@ -1121,6 +1336,7 @@
                 <button class="admin-nav-btn" onclick="logoutAdmin()">Log Out</button>
             `;
             renderAdmin();
+            renderOdometer(currentViews);
             startSessionTimeout();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
@@ -1155,7 +1371,6 @@
             const u = document.getElementById('adminUser').value;
             const p = document.getElementById('adminPass').value;
 
-            // Updated credentials check: mahaa2605 / Mahaa@2605
             if (u === 'mahaa2605' && p === 'Mahaa@2605') {
                 setAuthStatus(true);
                 document.getElementById('authError').style.display = 'none';
@@ -1363,6 +1578,7 @@
         }
 
         // Boot
+        renderOdometer(currentViews);
         if (getAuthStatus()) {
             showAdminPage();
         } else {
