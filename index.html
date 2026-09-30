@@ -599,7 +599,7 @@
             <div class="logo-area">
                 <a class="logo" onclick="navigateToPublic()">TheDailyTerminal</a>
                 <!-- Live Rolling Odometer Badge -->
-                <div class="site-views-pill" title="Total page telemetry views">
+                <div class="site-views-pill" title="Global cross-device telemetry views">
                     <span class="dot"></span>
                     <span style="font-weight: 600;">VIEWS:</span>
                     <span class="odometer-board" id="odometerBoard"></span>
@@ -668,17 +668,17 @@
             <!-- View Counter Control Card -->
             <div class="admin-panel-card" style="margin-bottom: 2rem; border-color: var(--accent-cyan);">
                 <h3 style="margin-bottom: 0.5rem; color: var(--accent-cyan); display: flex; align-items: center; gap: 0.5rem;">
-                    Site Telemetry &amp; View Counter
+                    Global Cross-Device View Counter
                 </h3>
                 <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">
-                    Modify the live visitor counter shown in the navigation bar. Useful for calibration or resetting analytics.
+                    Set the global counter value. This updates immediately in cloud storage for all devices and visitors.
                 </p>
                 <form id="viewCounterForm" onsubmit="handleManualViewUpdate(event)" style="display: flex; gap: 1rem; align-items: flex-end; max-width: 480px;">
                     <div class="form-group" style="margin-bottom: 0; flex: 1;">
                         <label for="manualViewInput">Counter Metric Value</label>
                         <input type="number" id="manualViewInput" min="0" required>
                     </div>
-                    <button type="submit" class="btn" style="white-space: nowrap;">Save View Count</button>
+                    <button type="submit" class="btn" style="white-space: nowrap;">Update Global Counter</button>
                 </form>
             </div>
 
@@ -827,7 +827,7 @@
                     "tag": "Articles",
                     "title": "100DaysOfLinuxCommands – Day 7: touch",
                     "summary": "🐧 #100DaysOfLinuxCommands – Day 7: touch A tiny command with a huge role in Linux 📄✨ 🔹 Command: touch (Create Empty Files / Update Timestamps) T...",
-                    "content": "🐧 #100DaysOfLinuxCommands – Day 7: touch\n\nA tiny command with a huge role in Linux 📄✨\n\n🔹 Command: touch (Create Empty Files / Update Timestamps)\n\nThe touch command is mainly used to:\n\n✅ Create new empty files\n✅ Update file timestamps without modifying content\n\n📌 Basic Usage:\n\n👉touch file.txt\n\n👉 Creates an empty file named file.txt\n\n⚙️ Useful Options:\n\n\ntouch file1.txt file2.txt    # Create multiple files\ntouch -a file.txt            # Update access time only\ntouch -m file.txt            # Update modified time only\ntouch -t 202605171200 file.txt   # Set custom timestamp\n\n💡 Real-World Use Cases:\n\n✅ Quickly create config or log files\n✅ Generate placeholder files for testing\n✅ Update timestamps in scripts\n✅ Initialize project structure faster\n\n🧪 Practical Example:\n\ntouch app.log\n👉 Creates a log file instantly\n\ntouch index.html style.css script.js\n👉 Creates multiple project files in one command\n\n⚡ Tips &amp; Best Practices:\n\n✔️ Use touch to prepare files before scripting\n✔️ Combine with mkdir for quick project setup\n✔️ Great for testing file permissions and ownership\n✔️ Avoid overwriting existing files accidentally\n\n🤖 Mini Automation Idea:\nBash\n#!/bin/bash\n# Create daily log file automatically\n\nlogfile=&quot;log_$(date +%F).txt&quot;\ntouch &quot;$logfile&quot;\n\necho &quot;📝 Created: $logfile&quot;\n\n📌 touch may look simple… but it’s one of the fastest ways to create and manage files in Linux.\n\n💬 What’s your most common use of touch — creating files or updating timestamps? 👇",
+                    "content": "🐧 #100DaysOfLinuxCommands – Day 7: touch\n\nA tiny command with a huge role in Linux 📄✨\n\n🔹 Command: touch (Create Empty Files / Update Timestamps)\n\nThe touch command is mainly used to:\n\n✅ Create new empty files\n✅ Update file timestamps without modifying content\n\n📌 Basic Usage:\n\n👉touch file.txt\n\n👉 Creates an empty file named file.txt\n\n⚙️ Useful Options:\n\n\ntouch file1.txt file2.txt    # Create multiple files\ntouch -a file.txt            # Update access time only\ntouch -m file.txt            # Update modified time only\ntouch -t 202605171200 file.txt   # Set custom timestamp\n\n💡 Real-World Use Cases:\n\n✅ Quickly create config or log files\n✅ Generate placeholder files for testing\n✅ Update timestamps in scripts\n✅ Initialize project structure faster\n\n🧪 Practical Example:\n\ntouch app.log\n👉 Creates a log file instantly\n\ntouch index.html style.css script.js\n👉 Creates multiple project files in one command\n\n⚡ Tips &amp; Best Practices:\n\n✔️ Use touch to prepare files before scripting\n✔ Combine with mkdir for quick project setup\n✔️ Great for testing file permissions and ownership\n✔️ Avoid overwriting existing files accidentally\n\n🤖 Mini Automation Idea:\nBash\n#!/bin/bash\n# Create daily log file automatically\n\nlogfile=&quot;log_$(date +%F).txt&quot;\ntouch &quot;$logfile&quot;\n\necho &quot;📝 Created: $logfile&quot;\n\n📌 touch may look simple… but it’s one of the fastest ways to create and manage files in Linux.\n\n💬 What’s your most common use of touch — creating files or updating timestamps? 👇",
                     "time": "23-SEP-2026 // 19:31 LOCAL"
           },
           {
@@ -835,15 +835,15 @@
                     "tag": "Articles",
                     "title": "100DaysOfLinuxCommands – Day 6: mv",
                     "summary": "🐧 #100DaysOfLinuxCommands – Day 6: mv Sometimes organizing files is just moving things to the right place 📂➡️📂 🔹 Command: mv (Move / Rename File...",
-                    "content": "🐧 #100DaysOfLinuxCommands – Day 6: mv\n\nSometimes organizing files is just moving things to the right place 📂➡️📂\n\n🔹 Command: mv (Move / Rename Files &amp; Directories)\nThe mv command is used to move files/directories from one location to another or rename them.\n\n📌 Basic Usage:\n\nmv old_file.txt new_file.txt\n\n👉 Renames a file\n\nmv file.txt /home/user/Documents/\n\n👉 Moves file to another directory\n⚙️ Useful Options:\n\n\nmv -i file.txt backup/    # Ask before overwrite\nmv -v file.txt backup/    # Show move details\nmv -u source dest         # Move only if newer\n\n\n💡 Real-World Use Cases:\n\n✅ Rename log files with timestamps\n✅ Organize downloads automatically\n✅ Move backups to archive folders\n✅ Rearrange project structure safely\n🧪 Practical Example:\n\n\nmv report.txt report_2026.txt\n\n👉 Renames report file with year\n\nmv *.log logs/\n\n👉 Moves all log files into logs directory\n\n⚡ Tips &amp; Best Practices:\n\n✔️ Use -i to avoid accidental overwrites\n✔️ Combine with wildcards (*) carefully\n✔️ Verify destination before moving critical files\n✔️ Use meaningful file names while renaming\n\n🤖 Mini Automation Idea:\n\nBash\n#!/bin/bash\n# Move all .jpg files into Images folder\n\nmkdir -p Images\nmv *.jpg Images/\n\necho &quot;📸 Images organized successfully!&quot;\n\n📌 mv is not just about moving files — it’s about keeping systems organized and manageable.\n💬 What do you use mv for most often — moving or renaming? 👇",
+                    "content": "🐧 #100DaysOfLinuxCommands – Day 6: mv\n\nSometimes organizing files is just moving things to the right place 📂➡📂\n\n🔹 Command: mv (Move / Rename Files &amp; Directories)\nThe mv command is used to move files/directories from one location to another or rename them.\n\n📌 Basic Usage:\n\nmv old_file.txt new_file.txt\n\n👉 Renames a file\n\nmv file.txt /home/user/Documents/\n\n👉 Moves file to another directory\n⚙ Useful Options:\n\n\nmv -i file.txt backup/    # Ask before overwrite\nmv -v file.txt backup/    # Show move details\nmv -u source dest         # Move only if newer\n\n\n💡 Real-World Use Cases:\n\n✅ Rename log files with timestamps\n✅ Organize downloads automatically\n✅ Move backups to archive folders\n✅ Rearrange project structure safely\n🧪 Practical Example:\n\n\nmv report.txt report_2026.txt\n\n👉 Renames report file with year\n\nmv *.log logs/\n\n👉 Moves all log files into logs directory\n\n⚡ Tips &amp; Best Practices:\n\n✔️ Use -i to avoid accidental overwrites\n✔️ Combine with wildcards (*) carefully\n✔️ Verify destination before moving critical files\n✔ Use meaningful file names while renaming\n\n🤖 Mini Automation Idea:\n\nBash\n#!/bin/bash\n# Move all .jpg files into Images folder\n\nmkdir -p Images\nmv *.jpg Images/\n\necho &quot;📸 Images organized successfully!&quot;\n\n📌 mv is not just about moving files — it’s about keeping systems organized and manageable.\n💬 What do you use mv for most often — moving or renaming? 👇",
                     "time": "09-SEP-2026 // 19:31 LOCAL"
           },
           {
                     "id": 1790611232868,
                     "tag": "Articles",
                     "title": "100DaysOfLinuxCommands – Day 5: cp",
-                    "summary": "🐧 #100DaysOfLinuxCommands – Day 5: cp Copying files is one of the most common tasks in Linux — and cp makes it fast and flexible 📂➡️📂 🔹 Command:...",
-                    "content": "🐧 #100DaysOfLinuxCommands – Day 5: cp\n\nCopying files is one of the most common tasks in Linux — and cp makes it fast and flexible 📂➡️📂\n\n🔹 Command: cp (Copy Files &amp; Directories)\nThe cp command is used to copy files and directories from one location to another.\n\n📌 Basic Usage:\n\n👉cp source_file destination\n\n👉 Copies a file to another location\n\n⚙️ Useful Options:\n\n\ncp -r folder1 backup/      # Copy directories recursively\ncp -v file.txt backup/     # Show copy progress\ncp -i file.txt backup/     # Ask before overwrite\ncp -u file.txt backup/     # Copy only if newer\n\n💡 Real-World Use Cases:\n\n✅ Create backups before editing files\n✅ Copy configuration files between environments\n✅ Duplicate project folders safely\n✅ Automate daily backups\n\n🧪 Practical Example:\n\n\ncp nginx.conf nginx.conf.bak\n\n👉 Creates a backup before modifying the config\n\ncp -r project/ project_backup/\n\n👉 Copies the entire project directory\n\n⚡ Tips &amp; Best Practices:\n\n✔️ Use -i to prevent accidental overwrites\n✔️ Use -r carefully — it copies everything recursively\n✔️ Keep backups with .bak extension\n✔️ Verify copied files using ls or diff\n\n🤖 Mini Automation Idea:\nBash\n#!/bin/bash\n# Daily backup script\n\nbackup_dir=&quot;backup_$(date +%F)&quot;\nmkdir -p &quot;$backup_dir&quot;\n\ncp -r ~/documents/* &quot;$backup_dir&quot;\n\necho &quot;✅ Backup completed in $backup_dir&quot;\n\n📌 cp is more than a copy command — it’s one of the easiest ways to protect your data.\n\n💬 What’s your most-used cp option?\n-r, -i, or -v? 👇",
+                    "summary": "🐧 #100DaysOfLinuxCommands – Day 5: cp Copying files is one of the most common tasks in Linux — and cp makes it fast and flexible 📂➡📂 🔹 Command:...",
+                    "content": "🐧 #100DaysOfLinuxCommands – Day 5: cp\n\nCopying files is one of the most common tasks in Linux — and cp makes it fast and flexible 📂➡️📂\n\n🔹 Command: cp (Copy Files &amp; Directories)\nThe cp command is used to copy files and directories from one location to another.\n\n📌 Basic Usage:\n\n👉cp source_file destination\n\n👉 Copies a file to another location\n\n⚙ Useful Options:\n\n\ncp -r folder1 backup/      # Copy directories recursively\ncp -v file.txt backup/     # Show copy progress\ncp -i file.txt backup/     # Ask before overwrite\ncp -u file.txt backup/     # Copy only if newer\n\n💡 Real-World Use Cases:\n\n✅ Create backups before editing files\n✅ Copy configuration files between environments\n✅ Duplicate project folders safely\n✅ Automate daily backups\n\n🧪 Practical Example:\n\n\ncp nginx.conf nginx.conf.bak\n\n👉 Creates a backup before modifying the config\n\ncp -r project/ project_backup/\n\n👉 Copies the entire project directory\n\n⚡ Tips &amp; Best Practices:\n\n✔️ Use -i to prevent accidental overwrites\n✔️ Use -r carefully — it copies everything recursively\n✔️ Keep backups with .bak extension\n✔ Verify copied files using ls or diff\n\n🤖 Mini Automation Idea:\nBash\n#!/bin/bash\n# Daily backup script\n\nbackup_dir=&quot;backup_$(date +%F)&quot;\nmkdir -p &quot;$backup_dir&quot;\n\ncp -r ~/documents/* &quot;$backup_dir&quot;\n\necho &quot;✅ Backup completed in $backup_dir&quot;\n\n📌 cp is more than a copy command — it’s one of the easiest ways to protect your data.\n\n💬 What’s your most-used cp option?\n-r, -i, or -v? 👇",
                     "time": "28-AUG-2026 // 22:30 LOCAL"
           },
           {
@@ -851,7 +851,7 @@
                     "tag": "Articles",
                     "title": "100DaysOfLinuxCommands – Day 4: rmdir",
                     "summary": "🐧 #100DaysOfLinuxCommands – Day 4: rmdir Cleaning up is just as important as creating 📁❌ 🔹 Command: rmdir (Remove Directory) The rmdir command is...",
-                    "content": "🐧 #100DaysOfLinuxCommands – Day 4: rmdir\n\nCleaning up is just as important as creating 📁❌\n\n🔹 Command: rmdir (Remove Directory)\nThe rmdir command is used to delete empty directories in Linux.\n📌 Basic Usage:\n\n\n👉rmdir folder_name\n\n👉 Removes the directory only if it’s empty\n\n⚙️ Useful Options:\n\n👉rmdir -p parent/child/grandchild   # Remove nested empty directories\n👉rmdir -v folder_name               # Show output message\n\n💡 Real-World Use Cases:\n\n✅ Clean up unused empty folders\n✅ Remove temporary directories after tasks\n✅ Maintain clean project structure\n✅ Used in scripts for housekeeping\n\n🧪 Practical Example:\n\n👉mkdir -p test/demo\n👉rmdir -p test/demo\n👉 Removes both demo and test if they’re empty\n\n⚠️ Important Note:\n\nrmdir folder_name\n\n❌ Fails if the directory is not empty\n✔️ Use rm -r if you want to remove directories with files (be careful!)\n\n⚡ Tips &amp; Best Practices:\n\n✔️ Use rmdir when you want safe deletion\n✔️ Prefer rmdir over rm -r to avoid accidental data loss\n✔️ Combine with scripts to clean empty directories\n✔️ Always double-check before deleting\n\n🤖 Mini Automation Idea:\nBash\n#!/bin/bash\n# Remove all empty directories in current path\n\nfind . -type d -empty -exec rmdir {} \\;\necho &quot;🧹 Cleaned empty directories&quot;\n\n📌 rmdir is simple… but it helps keep your system clean and organized.\n\n💬 Do you use rmdir or directly go with rm -r?",
+                    "content": "🐧 #100DaysOfLinuxCommands – Day 4: rmdir\n\nCleaning up is just as important as creating 📁❌\n\n🔹 Command: rmdir (Remove Directory)\nThe rmdir command is used to delete empty directories in Linux.\n📌 Basic Usage:\n\n\n👉rmdir folder_name\n\n👉 Removes the directory only if it’s empty\n\n⚙ Useful Options:\n\n👉rmdir -p parent/child/grandchild   # Remove nested empty directories\n👉rmdir -v folder_name               # Show output message\n\n💡 Real-World Use Cases:\n\n✅ Clean up unused empty folders\n✅ Remove temporary directories after tasks\n✅ Maintain clean project structure\n✅ Used in scripts for housekeeping\n\n🧪 Practical Example:\n\n👉mkdir -p test/demo\n👉rmdir -p test/demo\n👉 Removes both demo and test if they’re empty\n\n⚠️ Important Note:\n\nrmdir folder_name\n\n❌ Fails if the directory is not empty\n✔️ Use rm -r if you want to remove directories with files (be careful!)\n\n⚡ Tips &amp; Best Practices:\n\n✔️ Use rmdir when you want safe deletion\n✔️ Prefer rmdir over rm -r to avoid accidental data loss\n✔️ Combine with scripts to clean empty directories\n✔️ Always double-check before deleting\n\n🤖 Mini Automation Idea:\nBash\n#!/bin/bash\n# Remove all empty directories in current path\n\nfind . -type d -empty -exec rmdir {} \\;\necho &quot;🧹 Cleaned empty directories&quot;\n\n📌 rmdir is simple… but it helps keep your system clean and organized.\n\n💬 Do you use rmdir or directly go with rm -r?",
                     "time": "18-AUG-2026 // 21:29 LOCAL"
           },
           {
@@ -867,7 +867,7 @@
                     "tag": "Articles",
                     "title": "100DaysOfLinuxCommands – Day 2: pwd",
                     "summary": "🐧 #100DaysOfLinuxCommands – Day 2: pwd Sometimes the most powerful commands are the simplest ones. 🔹 Command: pwd (Print Working Directory) The p...",
-                    "content": "🐧 #100DaysOfLinuxCommands – Day 2: pwd\n\nSometimes the most powerful commands are the simplest ones.\n\n🔹 Command: pwd (Print Working Directory)\n\nThe pwd command shows your current location in the Linux file system.\n\n📌 Basic Usage:\n\n👉pwd\nmobile\n👉 Outputs the full path of your current directory\n\n⚙️ Useful Options:\n\n\n👉pwd -P   # Show physical path (resolves symbolic links)\n👉pwd -L   # Show logical path (default, keeps symlinks)\n\n💡 Real-World Use Cases:\n\n✅ Know exactly where you are before running commands\n✅ Avoid deleting or modifying wrong files\n✅ Useful in scripts for dynamic paths\n✅ Debug navigation issues in complex directories\n\n🧪 Practical Example:\n\n\ncd /var/log\npwd\n\n👉 Output:\n\n/var/log\n\n✔️ Confirms you&#039;re in the correct directory before checking logs\n⚡ Tips &amp; Best Practices:\n✔️ Always run pwd if you feel “lost” in terminal\n✔️ Combine with cd to verify navigation\n✔️ Use in scripts to avoid hardcoding paths\n✔️ Helpful before running dangerous commands like rm\n\n🤖 Mini Automation Idea:\n🌟Bash\n#!/bin/bash\n# Backup current directory name with timestamp\n\ndir=$(basename &quot;$(pwd)&quot;)\ntar -czf &quot;${dir}_backup_$(date +%F).tar.gz&quot; .\necho &quot;✅ Backup created for $dir&quot;\n\n\n📌 It may look basic… but pwd saves you from costly mistakes.\n\n💬 Do you use pwd often or rely on prompt path?\nLet’s discuss 👇",
+                    "content": "🐧 #100DaysOfLinuxCommands – Day 2: pwd\n\nSometimes the most powerful commands are the simplest ones.\n\n🔹 Command: pwd (Print Working Directory)\n\nThe pwd command shows your current location in the Linux file system.\n\n📌 Basic Usage:\n\n👉pwd\nmobile\n👉 Outputs the full path of your current directory\n\n⚙️ Useful Options:\n\n\n👉pwd -P   # Show physical path (resolves symbolic links)\n👉pwd -L   # Show logical path (default, keeps symlinks)\n\n💡 Real-World Use Cases:\n\n✅ Know exactly where you are before running commands\n✅ Avoid deleting or modifying wrong files\n✅ Useful in scripts for dynamic paths\n✅ Debug navigation issues in complex directories\n\n🧪 Practical Example:\n\n\ncd /var/log\npwd\n\n👉 Output:\n\n/var/log\n\n✔️ Confirms you&#039;re in the correct directory before checking logs\n⚡ Tips &amp; Best Practices:\n✔ Always run pwd if you feel “lost” in terminal\n✔️ Combine with cd to verify navigation\n✔️ Use in scripts to avoid hardcoding paths\n✔️ Helpful before running dangerous commands like rm\n\n🤖 Mini Automation Idea:\n🌟Bash\n#!/bin/bash\n# Backup current directory name with timestamp\n\ndir=$(basename &quot;$(pwd)&quot;)\ntar -czf &quot;${dir}_backup_$(date +%F).tar.gz&quot; .\necho &quot;✅ Backup created for $dir&quot;\n\n\n📌 It may look basic… but pwd saves you from costly mistakes.\n\n💬 Do you use pwd often or rely on prompt path?\nLet’s discuss 👇",
                     "time": "30-JUL-2026 // 21:27 LOCAL"
           },
           {
@@ -913,7 +913,7 @@
                     "id": 1789806422986,
                     "tag": "Articles",
                     "title": "Coding and programming ",
-                    "summary": "In tech circles, \"coding\" and \"programming\" are often used interchangeably — but they’re not the same. This visual does a great job of breaking it down 👇\n\n💻 Coding\n\nThink of coding as the act of translating logic into a machine-readable language. It’s about writing syntax, using languages like Python, Java, or C++, to solve specific problems or build functionalities.\n\n✅ Writing lines of code\n✅ Following language rules &amp; syntax\n✅ Providing machine-readable inputs\n✅ A vital subset of programming\n\n\n---\n\n🧠 Programming\n\nProgramming goes beyond just writing code — it’s about building complete software solutions. It involves:\n\n🔹 Understanding requirements\n🔹 Planning the software architecture\n🔹 Translating logic into code (coding!)\n🔹 Testing and debugging\n🔹 Writing documentation\n🔹 Maintaining the product over time\n\nCoding is a key part of programming — but programming is the bigger picture. It's like the difference between writing words and crafting an entire novel. 📖\n\n\n---\n\n💡 Whether you're a beginner writing your first script or an architect designing scalable systems — understanding this distinction helps you grow from a coder to a true software engineer.",
+                    "summary": "In tech circles, \"coding\" and \"programming\" are often used interchangeably — but they’re not the same. This visual does a great job of breaking it down 👇\n\n💻 Coding\n\nThink of coding as the act of translating logic into a machine-readable language. It’s about writing syntax, using languages like Python, Java, or C++, to solve specific problems or build functionalities.\n\n✅ Writing lines of code\n✅ Following language rules &amp; syntax\n✅ Providing machine-readable inputs\n✅ A vital subset of programming\n\n\n---\n\n🧠 Programming\n\nProgramming goes beyond just writing code — it’s about building complete software solutions. It involves:\n\n🔹 Understanding requirements\n🔹 Planning the software architecture\n🔹 Translating logic into code (coding!)\n🔹 Testing and debugging\n🔹 Writing documentation\n🔹 Maintaining the product over time\n\nCoding is a key part of programming — but programming is the bigger picture. It's like the difference between writing words and crafting an entire novel. 📖\n\n\n---\n\n💡 Whether you&#039;re a beginner writing your first script or an architect designing scalable systems — understanding this distinction helps you grow from a coder to a true software engineer.",
                     "time": "15-JUN-2026 // 18:56 LOCAL"
           },
           {
@@ -946,41 +946,90 @@
             applications = initialApplications;
         }
 
-        // View Counter State & Single-Increment Logic
-        let currentViews = siteViews;
-        try {
-            const storedViews = localStorage.getItem('dt_site_views');
-            if (storedViews !== null && !isNaN(parseInt(storedViews, 10))) {
-                currentViews = parseInt(storedViews, 10);
-            }
-        } catch (e) {
-            currentViews = siteViews;
-        }
+        // ================= GLOBAL CROSS-DEVICE COUNTER ENGINE =================
+        // Unique global namespace for the application
+        const CLOUD_NAMESPACE = 'dailyterminal_telemetry_hub';
+        const CLOUD_KEY = 'global_views';
 
-        // Increment count strictly once per load, with anti-double-fire debounce
-        function registerPageView() {
-            if (window.__dt_view_counted) return;
-            window.__dt_view_counted = true;
+        let currentViews = siteViews;
+
+        // Load cached view count immediately for instant UI render
+        try {
+            const cached = localStorage.getItem('dt_site_views');
+            if (cached !== null && !isNaN(parseInt(cached, 10))) {
+                currentViews = parseInt(cached, 10);
+            }
+        } catch (e) {}
+
+        // Global Sync & Increment Logic
+        async function syncGlobalViewCounter() {
+            // Anti-double-fire guard across runtime & prerendering
+            if (window.__dt_counted || document.prerendering) return;
+            window.__dt_counted = true;
 
             const now = Date.now();
-            const lastIncrement = parseInt(localStorage.getItem('dt_last_increment_ts') || '0', 10);
+            const lastTs = parseInt(localStorage.getItem('dt_last_visit_ts') || '0', 10);
 
-            // 1.5-second cooldown blocks immediate double execution from dev-servers/extensions/prerenders
-            if (now - lastIncrement > 1500) {
+            // 1.5s debounce ensures dual-evaluations, rapid re-renders, or extensions don't fire twice
+            const shouldIncrement = (now - lastTs > 1500);
+
+            try {
+                if (shouldIncrement) {
+                    localStorage.setItem('dt_last_visit_ts', now.toString());
+                    // Cloud API increment: hits global server and returns synchronized +1 value
+                    const res = await fetch(`https://api.counterapi.dev/v1/${CLOUD_NAMESPACE}/${CLOUD_KEY}/up`);
+                    if (res.ok) {
+                        const data = await res.json();
+                        if (data && typeof data.count === 'number') {
+                            currentViews = data.count;
+                            siteViews = currentViews;
+                            localStorage.setItem('dt_site_views', currentViews);
+                            renderOdometer(currentViews);
+                            return;
+                        }
+                    }
+                } else {
+                    // Only fetch current global count without incrementing
+                    const res = await fetch(`https://api.counterapi.dev/v1/${CLOUD_NAMESPACE}/${CLOUD_KEY}`);
+                    if (res.ok) {
+                        const data = await res.json();
+                        if (data && typeof data.count === 'number') {
+                            currentViews = data.count;
+                            siteViews = currentViews;
+                            localStorage.setItem('dt_site_views', currentViews);
+                            renderOdometer(currentViews);
+                            return;
+                        }
+                    }
+                }
+            } catch (err) {
+                // Secondary fallback endpoint if counterapi.dev is blocked or unreachable
+                try {
+                    const fallbackRes = await fetch(`https://api.countapi.xyz/${shouldIncrement ? 'hit' : 'get'}/${CLOUD_NAMESPACE}/${CLOUD_KEY}`);
+                    if (fallbackRes.ok) {
+                        const fallbackData = await fallbackRes.json();
+                        if (fallbackData && typeof fallbackData.value === 'number') {
+                            currentViews = fallbackData.value;
+                            siteViews = currentViews;
+                            localStorage.setItem('dt_site_views', currentViews);
+                            renderOdometer(currentViews);
+                            return;
+                        }
+                    }
+                } catch (fallbackErr) {
+                    console.warn('Cloud sync service unreachable, using offline persistence.', fallbackErr);
+                }
+            }
+
+            // Offline / fallback increment
+            if (shouldIncrement) {
                 currentViews += 1;
                 siteViews = currentViews;
                 try {
                     localStorage.setItem('dt_site_views', currentViews);
-                    localStorage.setItem('dt_last_increment_ts', now.toString());
                 } catch (e) {}
             }
-        }
-
-        // Handle speculative prerendering safely
-        if (document.prerendering) {
-            document.addEventListener('prerenderingchange', registerPageView, { once: true });
-        } else {
-            registerPageView();
+            renderOdometer(currentViews);
         }
 
         // Animated Odometer Engine
@@ -988,7 +1037,7 @@
             const container = document.getElementById('odometerBoard');
             if (!container) return;
 
-            const formattedStr = targetNumber.toLocaleString();
+            const formattedStr = Number(targetNumber).toLocaleString();
             container.innerHTML = '';
 
             for (let i = 0; i < formattedStr.length; i++) {
@@ -1033,19 +1082,27 @@
             }
         }
 
-        function handleManualViewUpdate(event) {
+        // Admin Manual Cloud Calibration
+        async function handleManualViewUpdate(event) {
             event.preventDefault();
             const input = document.getElementById('manualViewInput');
             const val = parseInt(input.value, 10);
             if (!isNaN(val) && val >= 0) {
                 currentViews = val;
                 siteViews = val;
+
                 try {
                     localStorage.setItem('dt_site_views', currentViews);
-                    localStorage.setItem('dt_last_increment_ts', Date.now().toString());
-                } catch (e) {}
+                    localStorage.setItem('dt_last_visit_ts', Date.now().toString());
+
+                    // Push directly to cloud store
+                    await fetch(`https://api.counterapi.dev/v1/${CLOUD_NAMESPACE}/${CLOUD_KEY}/set?count=${val}`);
+                } catch (e) {
+                    console.warn('Cloud set request failed, updated locally.', e);
+                }
+
                 renderOdometer(currentViews);
-                alert(`Site view count manually updated to ${currentViews.toLocaleString()}.`);
+                alert(`Global view count updated to ${currentViews.toLocaleString()} across all devices.`);
             }
         }
 
@@ -1577,8 +1634,10 @@
             document.getElementById(id).style.display = 'none';
         }
 
-        // Boot
+        // Initial Boot Sequence
         renderOdometer(currentViews);
+        syncGlobalViewCounter();
+
         if (getAuthStatus()) {
             showAdminPage();
         } else {
